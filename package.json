@@ -1,0 +1,19 @@
+{
+  "name": "flower-ecommerce",
+  "version": "0.0.1",
+  "description": "This template should help get you started developing with Vue 3 in Vite.",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A5KET/flower-ecommerce.git"
+  },
+  "author": "A5KET",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/A5KET/flower-ecommerce/issues"
+  },
+  "homepage": "https://github.com/A5KET/flower-ecommerce#readme"
+}
