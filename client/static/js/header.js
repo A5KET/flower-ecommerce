@@ -22,7 +22,7 @@ export function HeaderLogo(url) {
 }
 
 
-export function NavigationOption(option) {
+export function NavigationOption(option, isActive) {
   const icon = createElement('img', 'navigation-option-icon')
   icon.src = option.icon
 
@@ -32,6 +32,10 @@ export function NavigationOption(option) {
   const node = createElement('a', 'navigation-option')
   node.href = option.url
 
+  if (isActive) {
+    node.classList.add('active')
+  }
+
   node.appendChild(icon)
   node.appendChild(text)
 
@@ -39,10 +43,10 @@ export function NavigationOption(option) {
 }
 
 
-export function Navigation(options) {
+export function Navigation(options, activeOption) {
   const node = createElement('nav', 'header-navigation')
 
-  options.forEach((option) => node.appendChild(NavigationOption(option)))
+  Object.values(options).forEach((option) => node.appendChild(NavigationOption(option,  option === activeOption)))
 
   return node
 }

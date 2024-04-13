@@ -17,8 +17,8 @@ export function Footer() {
 }
 
 
-export function addBaseLayout(body) {
-  const navigation = Navigation(navigationOptions)
+export function addBaseLayout(body, activeNavigationOption) {
+  const navigation = Navigation(navigationOptions, activeNavigationOption)
   const header = Header(navigation)
   const main = Main()
   const footer = Footer()
