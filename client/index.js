@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/flowers', (req, res) => {
-  res.sendFile('static/html/flowers.html')
+  res.sendFile('static/html/flowers.html', { root: ROOT })
 })
 
 
