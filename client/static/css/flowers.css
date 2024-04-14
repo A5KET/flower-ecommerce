@@ -1,0 +1,108 @@
+ .flowers-main {
+  display: flex;
+ }
+ 
+ .flowers-filter {
+  max-height: 600px;
+  text-align: center;
+  margin-right: 20px;
+  width: 220px;
+  background: var(--color-first);
+  border-radius: 0 10px 10px 0;
+  color: var(--color-third);
+  font-size: 24px;
+  font-weight: 800;
+ }
+
+.flower-cards-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.flower-cards-topbar-wrapper {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+ .flowers-searchbar {
+  padding-left: 5px;
+  background: var(--color-first);
+  border-radius: 5px;
+  flex: 1;
+  display: flex;
+ }
+
+ .flowers-searchbar > input {
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--color-third);
+  font-size: 20px;
+  flex: 1;
+ }
+
+ .flowers-searchbar > button {
+  background: none;
+  border: none;
+  border-left: var(--color-third) solid 2px;
+  padding: 4px;
+  padding-left: 6px;
+ }
+
+ .flower-form-link {
+  padding: 2px 5px;
+  background: var(--color-first);
+  color: var(--color-third);
+  font-weight: 700;
+  font-size: 20px;
+  border-radius: 5px;
+  margin-left: 10px;
+ }
+
+ .flower-cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+ }
+
+ .flower-card {
+  width: 240px;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-first);
+  color: var(--color-third);
+  font-size: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+ }
+
+ .flower-card-thumbnail {
+  max-width: 100%;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+ }
+
+ .flower-card-name {
+  font-weight: 700;
+  margin: 5px;
+ }
+
+ .flower-card-price {
+  display: block;
+  margin: 5px;
+ }
+
+ .flowers-pagination {
+  align-self: center;
+  font-size: 24px;
+ }
+
+ .flowers-pagination :last-child {
+  transform: scale(-1, -1);
+ }
+
+ .flowers-pagination > * {
+  margin: 0 5px;
+ }

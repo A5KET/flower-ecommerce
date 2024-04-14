@@ -86,6 +86,8 @@ body {
 
 main {
   flex: 1;
+  width: var(--size-content);
+  margin: 20px auto;
 }
 
 /* FOOTER */
