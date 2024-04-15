@@ -17,6 +17,10 @@
   text-decoration: none;
 }
 
+.mirrored {
+  transform: scale(-1, -1);
+}
+
 body {
   display: flex;
   flex-direction: column;

@@ -24,6 +24,11 @@ app.get('/flowers', (req, res) => {
 })
 
 
+app.get('/flowers/form', (req, res) => {
+  res.sendFile('static/html/flowerForm.html', { root: ROOT })
+})
+
+
 server.listen(PORT, () => {
     console.log(`Chat server listening on ${PORT}`)
 })

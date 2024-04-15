@@ -79,7 +79,7 @@ function FlowersMain(flowers) {
 
   const flowerFormLink = createElement('a', 'flower-form-link')
   flowerFormLink.textContent = 'Додати'
-  flowerFormLink.href = '#'
+  flowerFormLink.href = '/flowers/form'
 
   const flowerTopBarWrapper = createElement('div', 'flower-cards-topbar-wrapper')
   flowerTopBarWrapper.appendChild(searchbar)
