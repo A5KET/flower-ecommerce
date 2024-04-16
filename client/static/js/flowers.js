@@ -5,10 +5,10 @@ import { FlowerRepository } from './repositories.js'
 
 
 export function Filter() {
-  const text = createElement('span', 'flowers-filter-text')
+  const text = createElement('span', 'filter-text')
   text.textContent = 'Фільтр'
 
-  const node = createElement('div', 'flowers-filter')
+  const node = createElement('div', 'filters')
   node.appendChild(text)
 
   return node
@@ -45,7 +45,7 @@ export function Searchbar() {
   button.type = 'submit'
   button.appendChild(icon)
 
-  const node = createElement('form', 'flowers-searchbar')
+  const node = createElement('form', 'searchbar')
   node.appendChild(input)
   node.appendChild(button)
 
@@ -57,13 +57,13 @@ function Pagination() {
   const leftArrow = createElement('img')
   leftArrow.src = '/img/arrow.svg'
 
-  const rightArrow = createElement('img')
+  const rightArrow = createElement('img', 'mirrored')
   rightArrow.src = '/img/arrow.svg'
 
   const text = createElement('span')
   text.textContent = '1 2 ... 10'
 
-  const node = createElement('div', 'flowers-pagination')
+  const node = createElement('div', 'pagination')
   node.appendChild(leftArrow)
   node.appendChild(text)
   node.appendChild(rightArrow)
@@ -77,11 +77,11 @@ function FlowersMain(flowers) {
 
   const searchbar = Searchbar()
 
-  const flowerFormLink = createElement('a', 'flower-form-link')
+  const flowerFormLink = createElement('a', 'form-link')
   flowerFormLink.textContent = 'Додати'
   flowerFormLink.href = '/flowers/form'
 
-  const flowerTopBarWrapper = createElement('div', 'flower-cards-topbar-wrapper')
+  const flowerTopBarWrapper = createElement('div', 'topbar-wrapper')
   flowerTopBarWrapper.appendChild(searchbar)
   flowerTopBarWrapper.appendChild(flowerFormLink)
 
@@ -90,12 +90,12 @@ function FlowersMain(flowers) {
 
   const pagination = Pagination()
 
-  const flowerCardsWrapper = createElement('div', 'flower-cards-wrapper')
+  const flowerCardsWrapper = createElement('div', 'cards-wrapper')
   flowerCardsWrapper.appendChild(flowerTopBarWrapper)
   flowerCardsWrapper.appendChild(flowerCards)
   flowerCardsWrapper.appendChild(pagination)
 
-  const node = createElement('main', 'flowers-main')
+  const node = createElement('main')
   node.appendChild(filter)
   node.appendChild(flowerCardsWrapper)
 

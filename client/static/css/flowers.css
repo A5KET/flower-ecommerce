@@ -1,8 +1,8 @@
- .flowers-main {
+main {
   display: flex;
  }
  
- .flowers-filter {
+ .filters {
   max-height: 600px;
   text-align: center;
   margin-right: 20px;
@@ -14,18 +14,18 @@
   font-weight: 800;
  }
 
-.flower-cards-wrapper {
+.cards-wrapper {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
-.flower-cards-topbar-wrapper {
+.topbar-wrapper {
   display: flex;
   margin-bottom: 30px;
 }
 
- .flowers-searchbar {
+ .searchbar {
   padding-left: 5px;
   background: var(--color-first);
   border-radius: 5px;
@@ -33,7 +33,7 @@
   display: flex;
  }
 
- .flowers-searchbar > input {
+ .searchbar > input {
   background: none;
   border: none;
   outline: none;
@@ -42,7 +42,7 @@
   flex: 1;
  }
 
- .flowers-searchbar > button {
+ .searchbar > button {
   background: none;
   border: none;
   border-left: var(--color-third) solid 2px;
@@ -50,7 +50,7 @@
   padding-left: 6px;
  }
 
- .flower-form-link {
+ .form-link {
   padding: 2px 5px;
   background: var(--color-first);
   color: var(--color-third);
@@ -92,17 +92,14 @@
  .flower-card-price {
   display: block;
   margin: 5px;
+  margin-top: 0px;
  }
 
- .flowers-pagination {
+ .pagination {
   align-self: center;
   font-size: 24px;
  }
 
- .flowers-pagination :last-child {
-  transform: scale(-1, -1);
- }
-
- .flowers-pagination > * {
+ .pagination > * {
   margin: 0 5px;
  }
