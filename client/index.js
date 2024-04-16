@@ -30,5 +30,5 @@ app.get('/flowers/form', (req, res) => {
 
 
 server.listen(PORT, () => {
-    console.log(`Chat server listening on ${PORT}`)
+    console.log(`FloraShop web server listening on ${PORT}`)
 })
