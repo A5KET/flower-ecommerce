@@ -5,101 +5,81 @@ import { FlowerRepository } from './repositories.js'
 
 
 export function Filter() {
-  const text = createElement('span', 'filter-text')
-  text.textContent = 'Фільтр'
-
-  const node = createElement('div', 'filters')
-  node.appendChild(text)
-
-  return node
+  return createElement(
+    { tag: 'div', className: 'filters' },
+    [
+      createElement({ tag: 'span', className: 'filter-text'})
+    ]
+  )
 }
 
 
 export function FlowerCard(flower) {
-  const thumbnail = createElement('img', 'flower-card-thumbnail')
-  thumbnail.src = flower.thumbnail
-
-  const name = createElement('span', 'flower-card-name')
-  name.textContent = flower.name
-
-  const price = createElement('span', 'flower-card-price')
-  price.textContent = `${flower.price}гр/шт`
-
-  const node = createElement('div', 'flower-card')
-  node.appendChild(thumbnail)
-  node.appendChild(name)
-  node.appendChild(price)
-
-  return node
+  return createElement(
+    { tag: 'div', className: 'flower-card' },
+    [
+      createElement({ tag: 'img', className: 'flower-card-thumbnail', src: flower.thumbnail }),
+      createElement({ tag: 'span', className: 'flower-card-name', textContent: flower.name }),
+      createElement({ tag: 'span', className: 'flower-card-price', textContent: `${flower.price}гр/шт`})
+    ]
+  )
 }
 
 
 export function Searchbar() {
-  const input = createElement('input')
-  input.placeholder = 'Пошук...'
-
-  const icon = createElement('img')
-  icon.src = '/img/loupe.svg'
-
-  const button = createElement('button')
-  button.type = 'submit'
-  button.appendChild(icon)
-
-  const node = createElement('form', 'searchbar')
-  node.appendChild(input)
-  node.appendChild(button)
-
-  return node
+  return createElement(
+    { tag: 'form', className: 'searchbar' },
+    [
+      createElement({ tag: 'input', placeholder: 'Пошук...' }),
+      createElement(
+        { tag: 'button', type: 'submit' },
+        [
+          createElement({ tag: 'img', src: '/img/loupe.svg' })
+        ] 
+      )
+    ]
+  )
 }
 
 
 function Pagination() {
-  const leftArrow = createElement('img')
-  leftArrow.src = '/img/arrow.svg'
-
-  const rightArrow = createElement('img', 'mirrored')
-  rightArrow.src = '/img/arrow.svg'
-
-  const text = createElement('span')
-  text.textContent = '1 2 ... 10'
-
-  const node = createElement('div', 'pagination')
-  node.appendChild(leftArrow)
-  node.appendChild(text)
-  node.appendChild(rightArrow)
-
-  return node
+  return createElement(
+    { tag: 'div', className: 'pagination' },
+    [
+      createElement({ tag: 'img', src: '/img/arrow.svg' }),
+      createElement({ tag: 'img', className: 'mirrored', src: '/img/arrow.svg'}),
+      createElement({ tag: 'span', textContent: '1 2 ... 10'})
+    ]
+  )
 }
 
 
 function FlowersMain(flowers) {
-  const filter = Filter()
-
-  const searchbar = Searchbar()
-
-  const flowerFormLink = createElement('a', 'form-link')
-  flowerFormLink.textContent = 'Додати'
-  flowerFormLink.href = '/flowers/form'
-
-  const flowerTopBarWrapper = createElement('div', 'topbar-wrapper')
-  flowerTopBarWrapper.appendChild(searchbar)
-  flowerTopBarWrapper.appendChild(flowerFormLink)
-
-  const flowerCards = createElement('div', 'flower-cards')
-  flowers.forEach(flower => flowerCards.appendChild(FlowerCard(flower)))
-
-  const pagination = Pagination()
-
-  const flowerCardsWrapper = createElement('div', 'cards-wrapper')
-  flowerCardsWrapper.appendChild(flowerTopBarWrapper)
-  flowerCardsWrapper.appendChild(flowerCards)
-  flowerCardsWrapper.appendChild(pagination)
-
-  const node = createElement('main')
-  node.appendChild(filter)
-  node.appendChild(flowerCardsWrapper)
-
-  return node
+  return createElement(
+    { tag: 'main' },
+    [
+      Filter(),
+      createElement(
+        { tag: 'div', className: 'cards-wrapper' },
+        [
+          createElement(
+            { tag: 'div', className: 'topbar-wrapper' },
+            [
+              Searchbar(),
+              createElement({ tag: 'a', className: 'form-link', href: '/flowers/form', textContent: 'Додати' })
+            ]
+          ),
+          createElement(
+            { tag: 'div', className: 'flower-cards' },
+            [
+              ...flowers.map(flower => FlowerCard(flower))
+            ]
+          ),
+          Pagination()
+        ]
+      ),
+    ]
+  )
 }
 
 

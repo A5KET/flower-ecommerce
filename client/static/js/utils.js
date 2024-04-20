@@ -1,9 +1,23 @@
-export function createElement(tag, className) {
-  const node = document.createElement(tag)
+export function createElement(props, children=[]) {
+  const node = document.createElement(props.tag)
 
-  if (className) {
-    node.className = className
+  Object.assign(node, props)
+
+  for (const child of children) {
+    const childNode = typeof child === 'object' ? child : createTextElement(child)
+    node.appendChild(childNode)
   }
 
   return node
+}
+
+
+export function createTextElement(text) {
+  return document.createTextNode(text)
+}
+
+
+export function objectMap(object, func) {
+  console.log(Object.fromEntries(Object.entries(object).map(([k, v]) => [k, func(v)])))
+  return 
 }

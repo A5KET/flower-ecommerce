@@ -4,74 +4,54 @@ import { navigationOptions } from './config.js'
 
 
 function ImageSlider(images) {
-  const leftArrow = createElement('img', 'arrow')
-  leftArrow.src = '/img/arrow.svg'
-
-  const rightArrow = createElement('img', 'arrow mirrored')
-  rightArrow.src = '/img/arrow.svg'
-
-  const mainImage = createElement('img', 'main-image')
-  mainImage.src = images[0].path
-
-  const mainImageWrapper = createElement('div', 'main-image-wrapper')
-  mainImageWrapper.appendChild(leftArrow)
-  mainImageWrapper.appendChild(mainImage)
-  mainImageWrapper.appendChild(rightArrow)
-
-  const imagesSlider = createElement('div', 'slider-images')
-  images.forEach(image => {
-    const imageNode = createElement('img', 'slider-image')
-    imageNode.src = image.path
-    imagesSlider.appendChild(imageNode)
-  })
-
-  const addImageButton = createElement('div', 'slider-image slider-images-button')
-  addImageButton.textContent = 'Додати зображення'
-
-  imagesSlider.appendChild(addImageButton)
-
-  const node = createElement('div', 'slider')
-  node.appendChild(mainImageWrapper)
-  node.appendChild(imagesSlider)
-
-  return node
+  return createElement(
+    { tag: 'div', className: 'slider' },
+    [
+      createElement(
+        { tag: 'div', className: 'main-image-wrapper' },
+        [
+          createElement({ tag: 'img', className: 'arrow', src: '/img/arrow.svg' }),
+          createElement({ tag: 'img', className: 'main-image', src: images[0].path }),
+          createElement({ tag: 'img', className: 'arrow mirrored', src: '/img/arrow.svg' }),
+        ]
+      ),
+      createElement(
+        { tag: 'div', className: 'slider-images' },
+        [
+          ...images.map(image => createElement({ tag: 'img', className: 'slider-image', src: image.path })),
+          createElement({ tag: 'div', className: 'slider-image slider-images-button', textContent: 'Додати зображення' })
+        ]
+      )
+    ]
+  )
 }
 
 
-function FlowerFormField(placeholder = '') {
-  const node = createElement('input', 'form-field')
-  node.placeholder = placeholder
-
-  return node
+function FlowerFormField(placeholder='') {
+  return createElement({ tag: 'input', className: 'form-field', placeholder })
 }
 
 
 function FlowerForm() {
-  const name = FlowerFormField('Назва')
-
-  const color = FlowerFormField('Колір')
-
-  const price = FlowerFormField('Ціна')
-
-  const fields = createElement('div', 'form-fields')
-  fields.appendChild(name)
-  fields.appendChild(color)
-  fields.appendChild(price)
-
-  const submitButton = createElement('button', 'form-button')
-  submitButton.type = 'submit'
-  submitButton.textContent = 'Зберегти'
-
-  const node = createElement('form')
-  node.appendChild(fields)
-  node.appendChild(submitButton)
-
-  return node
+  return createElement(
+    { tag: 'form' },
+    [
+      createElement(
+        { tag: 'div', className: 'form-fields' },
+        [
+          FlowerFormField('Назва'),
+          FlowerFormField('Колір'),
+          FlowerFormField('Ціна')
+        ]
+      ),
+      createElement({ tag: 'button', className: 'form-button', type: 'submit', textContent: 'Зберегти' })
+    ]
+  )
 }
 
 
 function FlowerFormMain() {
-  const slider = ImageSlider([
+  const sliderImages = [
     {
       'path': '/img/flower.jpg'
     },
@@ -81,15 +61,15 @@ function FlowerFormMain() {
     {
       'path': '/img/flower.jpg'
     },
-  ])
+  ]
 
-  const form = FlowerForm()
-
-  const node = createElement('main')
-  node.appendChild(slider)
-  node.appendChild(form)
-
-  return node
+  return createElement(
+    { tag: 'main' },
+    [
+      ImageSlider(sliderImages),
+      FlowerForm()
+    ]
+  )
 }
 
 

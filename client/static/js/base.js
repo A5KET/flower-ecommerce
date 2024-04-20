@@ -4,16 +4,16 @@ import { Navigation, Header } from './header.js'
 
 
 export function Main() {
-  const node = createElement('main')
-
-  return node
+  return createElement(
+    { tag: 'main' }
+  )
 }
 
 
 export function Footer() {
-  const node = createElement('footer')
-
-  return node
+  return createElement(
+    { tag: 'footer' }
+  )
 }
 
 
