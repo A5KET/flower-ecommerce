@@ -32,14 +32,12 @@ main {
 }
 
 .main-image {
-  border-radius: 10px;
   align-self: center;
   width: 400px;
 }
 
 .slider-image {
   width: 160px;
-  border-radius: 10px;
 }
 
 form {
@@ -52,7 +50,6 @@ form {
   color: var(--color-third);
   padding: 2px 3px 2px 5px;
   font-size: 19px;
-  border-radius: 5px;
   margin: 10px 15px 0 0;
   background: var(--color-first);
   border: none;
@@ -69,7 +66,6 @@ form {
 .form-button {
   background: white;
   border: 3px currentColor solid;
-  border-radius: 10px;
   padding: 2px 3px;
   font-weight: 800;
   font-size: 20px;
