@@ -66,12 +66,12 @@ body {
   font-size: 15px;
   font-weight: 600;
   color: var(--color-third);
-  padding: 3px 2px;
   border: 1px var(--color-third) solid;
   border-top: none;
   border-bottom: none;
   padding: 3px 5px;
   display: flex;
+  align-items: center;
 }
 
 .navigation-option:hover {

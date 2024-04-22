@@ -1,17 +1,8 @@
 import { createElement } from './utils.js'
-import { addBaseLayout } from './base.js'
+import { BaseLayout, mountLayout } from './base.js'
 import { navigationOptions } from './config.js'
 import { FlowerRepository } from './repositories.js'
-
-
-export function Filter() {
-  return createElement(
-    { tag: 'div', className: 'filters' },
-    [
-      createElement({ tag: 'span', className: 'filter-text'})
-    ]
-  )
-}
+import { EntityManagmentBase } from './entityManagment.js'
 
 
 export function FlowerCard(flower) {
@@ -26,70 +17,20 @@ export function FlowerCard(flower) {
 }
 
 
-export function Searchbar() {
+function FlowerCards(flowers) {
   return createElement(
-    { tag: 'form', className: 'searchbar' },
+    { tag: 'div', className: 'flower-cards' },
     [
-      createElement({ tag: 'input', placeholder: 'Пошук...' }),
-      createElement(
-        { tag: 'button', type: 'submit' },
-        [
-          createElement({ tag: 'img', src: '/img/loupe.svg' })
-        ] 
-      )
-    ]
-  )
-}
-
-
-function Pagination() {
-  return createElement(
-    { tag: 'div', className: 'pagination' },
-    [
-      createElement({ tag: 'img', src: '/img/arrow.svg' }),
-      createElement({ tag: 'img', className: 'mirrored', src: '/img/arrow.svg'}),
-      createElement({ tag: 'span', textContent: '1 2 ... 10'})
-    ]
-  )
-}
-
-
-function FlowersMain(flowers) {
-  return createElement(
-    { tag: 'main' },
-    [
-      Filter(),
-      createElement(
-        { tag: 'div', className: 'cards-wrapper' },
-        [
-          createElement(
-            { tag: 'div', className: 'topbar-wrapper' },
-            [
-              Searchbar(),
-              createElement({ tag: 'a', className: 'form-link', href: '/flowers/form', textContent: 'Додати' })
-            ]
-          ),
-          createElement(
-            { tag: 'div', className: 'flower-cards' },
-            [
-              ...flowers.map(flower => FlowerCard(flower))
-            ]
-          ),
-          Pagination()
-        ]
-      ),
+      ...flowers.map(flower => FlowerCard(flower))
     ]
   )
 }
 
 
 const flowerRepository = new FlowerRepository()
-
-flowerRepository.getFlowers().then((flowers) => {
-  const main = FlowersMain(flowers)
-
-  document.querySelector('main').replaceWith(main)
+flowerRepository.getFlowers().then(flowers => {
+  const cards = FlowerCards(flowers)
+  const main = EntityManagmentBase(navigationOptions.flowers, cards, '/flowers/form')
+  
+  mountLayout(main, document.body)
 })
-
-
-addBaseLayout(document.body, navigationOptions.flowers)

@@ -1,6 +1,5 @@
 import { createElement } from './utils.js'
-import { addBaseLayout } from './base.js'
-import { navigationOptions } from './config.js'
+import { BaseLayout, mountLayout } from './base.js'
 
 
 function ImageSlider(images) {
@@ -73,6 +72,4 @@ function FlowerFormMain() {
 }
 
 
-addBaseLayout(document.body, undefined)
-
-document.querySelector('main').replaceWith(FlowerFormMain())
+mountLayout(BaseLayout(FlowerFormMain()), document.body)

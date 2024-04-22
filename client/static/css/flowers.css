@@ -1,63 +1,4 @@
-main {
-  display: flex;
- }
- 
- .filters {
-  max-height: 600px;
-  text-align: center;
-  margin-right: 20px;
-  width: 220px;
-  background: var(--color-first);
-  color: var(--color-third);
-  font-size: 24px;
-  font-weight: 800;
- }
-
-.cards-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.topbar-wrapper {
-  display: flex;
-  margin-bottom: 30px;
-}
-
- .searchbar {
-  padding-left: 5px;
-  background: var(--color-first);
-  flex: 1;
-  display: flex;
- }
-
- .searchbar > input {
-  background: none;
-  border: none;
-  outline: none;
-  color: var(--color-third);
-  font-size: 20px;
-  flex: 1;
- }
-
- .searchbar > button {
-  background: none;
-  border: none;
-  border-left: var(--color-third) solid 2px;
-  padding: 4px;
-  padding-left: 6px;
- }
-
- .form-link {
-  padding: 2px 5px;
-  background: var(--color-first);
-  color: var(--color-third);
-  font-weight: 700;
-  font-size: 20px;
-  margin-left: 10px;
- }
-
- .flower-cards {
+.flower-cards {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -87,13 +28,4 @@ main {
   display: block;
   margin: 5px;
   margin-top: 0px;
- }
-
- .pagination {
-  align-self: center;
-  font-size: 24px;
- }
-
- .pagination > * {
-  margin: 0 5px;
  }

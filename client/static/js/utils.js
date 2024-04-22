@@ -15,9 +15,3 @@ export function createElement(props, children=[]) {
 export function createTextElement(text) {
   return document.createTextNode(text)
 }
-
-
-export function objectMap(object, func) {
-  console.log(Object.fromEntries(Object.entries(object).map(([k, v]) => [k, func(v)])))
-  return 
-}
