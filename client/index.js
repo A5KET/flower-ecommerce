@@ -13,20 +13,17 @@ const server = http.createServer(app)
 
 app.use(express.static('./static'))
 
+const endpoints = {
+  '/': 'index.html',
+  '/flowers': 'flowers.html',
+  '/flowers/form': 'flowerForm.html',
+}
 
-app.get('/', (req, res) => {
-    res.sendFile('static/html/index.html', { root: ROOT })
-})
-
-
-app.get('/flowers', (req, res) => {
-  res.sendFile('static/html/flowers.html', { root: ROOT })
-})
-
-
-app.get('/flowers/form', (req, res) => {
-  res.sendFile('static/html/flowerForm.html', { root: ROOT })
-})
+for (const endpoint in endpoints) {
+  app.get(endpoint, (req, res) => {
+    res.sendFile(`/static/html/${endpoints[endpoint]}`, { root: ROOT })
+  })
+}
 
 
 server.listen(PORT, () => {
