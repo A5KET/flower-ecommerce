@@ -28,9 +28,9 @@ function FlowerCards(flowers) {
 
 
 const flowerRepository = new FlowerRepository()
-flowerRepository.getFlowers().then(flowers => {
+flowerRepository.getAll().then(flowers => {
   const cards = FlowerCards(flowers)
   const main = EntityManagmentBase(navigationOptions.flowers, cards, '/flowers/form')
-  
+
   mountLayout(main, document.body)
 })

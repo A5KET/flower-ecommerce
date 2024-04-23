@@ -1,0 +1,37 @@
+.slider {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider-images {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider-images-button {
+  background: var(--color-first);
+  color: var(--color-third);
+  font-size: 20px;
+  font-weight: 800;
+  text-align: center;
+  padding-top: 30px;
+}
+
+.main-image-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.main-image-wrapper > .arrow {
+  width: 70px;
+}
+
+.main-image {
+  align-self: center;
+  width: 400px;
+}
+
+.slider-image {
+  width: 160px;
+}

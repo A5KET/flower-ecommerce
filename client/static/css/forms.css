@@ -1,0 +1,54 @@
+fieldset {
+  margin-top: 15px;
+  border: none;
+  display: inline-block;
+  font-size: 23px;
+  width: 100%;
+}
+
+fieldset label{
+  margin-right: 10px;
+  position: relative;
+}
+
+fieldset > * {
+  margin-top: 5px;
+}
+
+.text-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-field input {
+  float: right;
+  background: var(--color-first);
+  color: var(--color-third);
+  padding: 2px 6px;
+  border: none;
+  font-size: inherit;
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.form-buttons > * {
+  border: 3px currentColor solid;
+  padding: 2px 3px;
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.delete-button {
+    background: #FFC9C9;
+    color: black;
+    border-color: #B70000;
+}
+
+.save-button {
+  background: var(--color-third);
+  color: var(--color-first);
+}
