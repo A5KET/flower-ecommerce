@@ -22,7 +22,7 @@ export function Filter() {
   return createElement(
     { tag: 'div', className: 'filters' },
     [
-      createElement({ tag: 'span', className: 'filter-text'})
+      createElement({ tag: 'div', className: 'filters-heading', textContent: 'Фільтр' })
     ]
   )
 }

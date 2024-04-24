@@ -13,6 +13,10 @@ main {
   font-weight: 800;
  }
 
+ .filters-heading {
+  border-bottom: 2px solid var(--color-third);
+ }
+
 .content-wrapper {
   flex: 1;
   display: flex;
