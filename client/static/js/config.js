@@ -5,7 +5,7 @@ export const navigationOptions = {
     icon: '/img/flower.svg'
   },
   orders: {
-    url: '/#',
+    url: '/orders',
     title: 'Замовлення',
     icon: '/img/order.svg'
   },

@@ -15,21 +15,3 @@ export function createElement(props, children=[]) {
 export function createTextElement(text) {
   return document.createTextNode(text)
 }
-
-
-function defaultFormat(value) {
-  return value
-}
-
-
-export function formatObjectValues(object, fields) {
-  const values = []
-
-  for (const field in fields) {
-    const format = fields[field].format || defaultFormat
-
-    values.push(format(object[field]))
-  }
-
-  return values
-}

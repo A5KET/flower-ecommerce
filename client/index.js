@@ -17,6 +17,8 @@ const endpoints = {
   '/': 'index.html',
   '/flowers': 'flowers.html',
   '/flowers/form': 'flowerForm.html',
+  '/orders': 'orders.html',
+  '/orders/form': 'ordersForm.html'
 }
 
 for (const endpoint in endpoints) {

@@ -15,12 +15,12 @@ fieldset > * {
   margin-top: 5px;
 }
 
-.text-field {
+.field {
   display: flex;
   flex-direction: column;
 }
 
-.text-field input {
+.field input {
   float: right;
   background: var(--color-first);
   color: var(--color-third);
