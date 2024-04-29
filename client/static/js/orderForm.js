@@ -8,7 +8,7 @@ function ProductListElement(product) {
     { tag: 'div', className: 'product' },
     [
       createElement({ tag: 'span', className: 'product-name', textContent: product.name }),
-      createElement({ tag: 'span', textContent: `${product.price} гр/шт x ${product.amount}` }),
+      createElement({ tag: 'span', textContent: `${product.price * product} гр/шт x ${product.amount}` }),
       createElement(
         { tag: 'button', className: 'product-remove' },
         [
@@ -20,7 +20,7 @@ function ProductListElement(product) {
 }
 
 function ProductList(products) {
-  const totalPrice = products.reduce((cur, product) => cur + product.price, 0)
+  const totalPrice = products.reduce((cur, product) => cur + (product.price * product.amount), 0)
 
   return createElement(
     { tag: 'div', className: 'products' },
