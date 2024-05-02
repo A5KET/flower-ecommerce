@@ -10,10 +10,10 @@ import { FlowerForm } from './views/flowerForm.js'
 import { OrderForm } from './views/orderForm.js'
 
 
-const mount = (layout, styles=[]) => {
+const mount = (layout, title, styles=[]) => {
   const defaultStyles = ['/css/base.css']
 
-  mountLayout(layout, defaultStyles.concat(styles))
+  mountLayout(layout, title + ' | FloraShop Admin', defaultStyles.concat(styles))
 }
 
 const origin = window.location.origin
@@ -26,35 +26,35 @@ const router = new Router(
     {
       path: '/',
       handler: () => {
-        mount(Index())
+        mount(Index(), 'Головна сторінка')
       }
     },
     {
       path: '/flowers',
       handler: () => {
         flowerRepository.getAll().then(flowers => {
-          mount(Flowers(flowers), ['/css/entityManagment.css', '/css/flowers.css'])
+          mount(Flowers(flowers), 'Квіти', ['/css/entityManagment.css', '/css/flowers.css'])
         })
       }
     },
     {
       path: '/flowers/:flowerId',
       handler: () => {
-        mount(FlowerForm(), ['/css/forms.css', '/css/slider.css', '/css/flowerForm.css'])
+        mount(FlowerForm(), 'Форма', ['/css/forms.css', '/css/slider.css', '/css/flowerForm.css'])
       }
     },
     {
       path: '/orders',
       handler: () => {
         orderRepository.getAll().then(orders => {
-          mount(Orders(orders), ['/css/entityManagment.css', '/css/orders.css'])
+          mount(Orders(orders), 'Замовлення', ['/css/entityManagment.css', '/css/orders.css'])
         })
       },
     },
     {
       path: '/orders/:orderId',
       handler: () => {
-        mount(OrderForm(), ['/css/forms.css', '/css/orderForm.css'])
+        mount(OrderForm(), 'Форма', ['/css/forms.css', '/css/orderForm.css'])
       }
     }
   ],
@@ -62,7 +62,7 @@ const router = new Router(
     noMatchRoute: {
       path: '404',
       handler: () => {
-        mount(NoMatch(), document.body)
+        mount(NoMatch(), 'Не знайдено')
       }
     },
   }

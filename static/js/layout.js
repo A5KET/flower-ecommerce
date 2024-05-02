@@ -24,8 +24,9 @@ export function Style(href) {
 }
 
 
-export function mountLayout(layout, styles=[]) {
+export function mountLayout(layout, title, styles=[]) {
   styles.map(style => document.head.appendChild(Style(style)))
   document.body.replaceWith(layout)
+  document.title = title
 }
 
