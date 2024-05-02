@@ -1,11 +1,11 @@
-import { createElement } from './utils.js'
-import { BaseLayout, mountLayout } from './base.js'
-import { FormButtons, TextInputField } from './forms.js'
-import { ImageSlider } from './slider.js'
-import { Fieldset } from './forms.js'
+import { createElement } from '../layout.js'
+import { BaseLayout } from '../components/base.js'
+import { FormButtons, TextInputField } from '../components/forms.js'
+import { ImageSlider } from '../components/slider.js'
+import { Fieldset } from '../components/forms.js'
 
 
-function FlowerFormMain() {
+function FlowerFormMain(flower) {
   const sliderImages = [
     {
       'path': '/img/flower.jpg'
@@ -53,4 +53,6 @@ function FlowerFormMain() {
 }
 
 
-mountLayout(BaseLayout(FlowerFormMain()), document.body)
+export function FlowerForm(flower) {
+  return BaseLayout(FlowerFormMain(flower))
+}

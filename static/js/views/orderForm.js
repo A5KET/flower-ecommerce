@@ -1,6 +1,6 @@
-import { BaseLayout, mountLayout } from './base.js'
-import { Fieldset, FormButtons, TextInputField, DateTimeField } from './forms.js'
-import { createElement } from './utils.js'
+import { BaseLayout } from '../components/base.js'
+import { Fieldset, FormButtons, TextInputField, DateTimeField } from '../components/forms.js'
+import { createElement } from '../layout.js'
 
 
 function ProductListElement(product) {
@@ -8,7 +8,7 @@ function ProductListElement(product) {
     { tag: 'div', className: 'product' },
     [
       createElement({ tag: 'span', className: 'product-name', textContent: product.name }),
-      createElement({ tag: 'span', textContent: `${product.price * product} гр/шт x ${product.amount}` }),
+      createElement({ tag: 'span', textContent: `${product.price} гр/шт x ${product.amount} = ${product.price * product.amount} грн.` }),
       createElement(
         { tag: 'button', className: 'product-remove' },
         [
@@ -26,13 +26,13 @@ function ProductList(products) {
     { tag: 'div', className: 'products' },
     [
       ...products.map(product => ProductListElement(product)),
-      createElement({ tag: 'span', className: 'total-price', textContent: `Повна ціна: ${totalPrice} гр.` })
+      createElement({ tag: 'span', className: 'total-price', textContent: `Повна ціна: ${totalPrice} грн.` })
     ]
   )
 }
 
 
-function OrderForm() {
+function OrderFormMain() {
   const order = {
     id: 123456,
     status: 'Готовий',
@@ -90,5 +90,6 @@ function OrderForm() {
 }
 
 
-
-mountLayout(BaseLayout(OrderForm()), document.body)
+export function OrderForm(order) {
+  return BaseLayout(OrderFormMain(order))
+}

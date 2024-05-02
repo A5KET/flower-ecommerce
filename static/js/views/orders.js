@@ -1,9 +1,7 @@
-import { mountLayout } from './base.js'
-import { navigationOptions } from './config.js'
-import { EntityManagmentBase } from './entityManagment.js'
-import { OrderRepository } from './repositories.js'
-import { createElement } from './utils.js'
-import { formatObjectValues, toLocaleStringFormat } from './formats.js'
+import { navigationOptions } from '../config.js'
+import { EntityManagmentBase } from '../components/entityManagment.js'
+import { createElement } from '../layout.js'
+import { formatObjectValues, toLocaleStringFormat } from '../formats.js'
 
 
 const orderOptions = {
@@ -98,8 +96,6 @@ function OrdersList(orders) {
 }
 
 
-const orderRepository = new OrderRepository()
-
-orderRepository.getAll().then(orders => {
-  mountLayout(EntityManagmentBase(navigationOptions.orders, OrdersList(orders), '/orders/form'), document.body)
-})
+export function Orders(orders) {
+  return EntityManagmentBase(navigationOptions.orders, OrdersList(orders), '/orders/form')
+}

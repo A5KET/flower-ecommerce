@@ -15,3 +15,17 @@ export function createElement(props, children=[]) {
 export function createTextElement(text) {
   return document.createTextNode(text)
 }
+
+
+export function Style(href) {
+  return createElement(
+    { tag: 'link', rel: 'stylesheet', href }
+  )
+}
+
+
+export function mountLayout(layout, styles=[]) {
+  styles.map(style => document.head.appendChild(Style(style)))
+  document.body.replaceWith(layout)
+}
+

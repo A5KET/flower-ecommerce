@@ -1,5 +1,5 @@
-import { createElement } from './utils.js'
-import { convertToDateTimeLocalString } from './formats.js'
+import { createElement } from '../layout.js'
+import { convertToDateTimeLocalString } from '../formats.js'
 
 
 export function TextInputField(field) {
@@ -14,7 +14,6 @@ export function TextInputField(field) {
 
 
 export function DateTimeField(field) {
-  console.log(field)
   return createElement(
     { tag: 'div', className: 'field' },
     [

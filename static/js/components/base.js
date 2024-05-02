@@ -1,5 +1,5 @@
-import { createElement } from './utils.js'
-import { navigationOptions } from './config.js'
+import { createElement } from '../layout.js'
+import { navigationOptions } from '../config.js'
 
 
 export function HeaderLogo() {
@@ -71,9 +71,4 @@ export function BaseLayout(main, activeNavigationOption) {
       Footer()
     ]
   )
-}
-
-
-export function mountLayout(layout, root) {
-  root.replaceWith(layout)
 }

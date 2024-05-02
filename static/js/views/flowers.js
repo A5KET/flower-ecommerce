@@ -1,13 +1,11 @@
-import { createElement } from './utils.js'
-import { BaseLayout, mountLayout } from './base.js'
-import { navigationOptions } from './config.js'
-import { FlowerRepository } from './repositories.js'
-import { EntityManagmentBase } from './entityManagment.js'
+import { createElement } from '../layout.js'
+import { navigationOptions } from '../config.js'
+import { EntityManagmentBase } from '../components/entityManagment.js'
 
 
-export function FlowerCard(flower) {
+function FlowerCard(flower) {
   return createElement(
-    { tag: 'div', className: 'flower-card' },
+    { tag: 'a', className: 'flower-card', href: '/flowers/' + flower.id},
     [
       createElement({ tag: 'img', className: 'flower-card-thumbnail', src: flower.thumbnail }),
       createElement({ tag: 'span', className: 'flower-card-name', textContent: flower.name }),
@@ -27,10 +25,9 @@ function FlowerCards(flowers) {
 }
 
 
-const flowerRepository = new FlowerRepository()
-flowerRepository.getAll().then(flowers => {
+export function Flowers(flowers) {
   const cards = FlowerCards(flowers)
   const main = EntityManagmentBase(navigationOptions.flowers, cards, '/flowers/form')
 
-  mountLayout(main, document.body)
-})
+  return main
+}

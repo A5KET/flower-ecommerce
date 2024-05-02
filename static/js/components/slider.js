@@ -1,4 +1,4 @@
-import { createElement } from './utils.js'
+import { createElement } from '../layout.js'
 
 
 export function ImageSlider(images) {
