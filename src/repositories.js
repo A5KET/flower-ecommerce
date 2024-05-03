@@ -1,9 +1,27 @@
-export class FlowerRepository {
+
+
+
+class Repository { 
   constructor() {
-    this.flowers = []
+    this.data = []
+  }
+
+  async getAll() {
+    return this.data
+  }
+
+  async get(id) {
+    return this.data.find((value => value.id === id))
+  }
+}
+
+
+export class FlowerRepository extends Repository {
+  constructor() {
+    super()
 
     for (let i = 0; i < 12; i++) {
-      this.flowers.push({
+      this.data.push({
         id: i,
         name: 'Квітка',
         price: 200,
@@ -12,19 +30,15 @@ export class FlowerRepository {
       )
     }
   }
-
-  async getAll() {
-    return this.flowers
-  }
 }
 
 
-export class OrderRepository{
+export class OrderRepository extends Repository {
   constructor () {
-    this.orders = []
+    super()
 
     for (let i = 0; i < 22; i++) {
-      this.orders.push({
+      this.data.push({
         id: i,
         status: 'Готовий',
         customer: 'Євсеенко Г. О.',
@@ -38,9 +52,5 @@ export class OrderRepository{
         ],
       })
     }
-  }
-
-  async getAll(){
-    return this.orders
   }
 }
