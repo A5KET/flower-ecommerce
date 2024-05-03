@@ -1,4 +1,4 @@
-import { navigationOptions } from '../config.js'
+import { routes } from '../config.js'
 import { EntityManagmentBase } from '../components/entityManagment.js'
 import { createElement } from '../layout.js'
 import { formatObjectValues, toLocaleStringFormat } from '../formats.js'
@@ -97,5 +97,5 @@ function OrdersList(orders) {
 
 
 export function Orders(orders) {
-  return EntityManagmentBase(navigationOptions.orders, OrdersList(orders), '/orders/form')
+  return EntityManagmentBase(routes.orders, OrdersList(orders), '/orders/form')
 }

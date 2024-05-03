@@ -39,7 +39,6 @@ export class Router {
   handlePath(path) {
     const route = this.getHandler(path)
     const params = this.paramsParser(route.path, path)
-    console.log(path, route)
 
     route.handler(params)
   }

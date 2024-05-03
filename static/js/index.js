@@ -1,5 +1,6 @@
 import { Router } from './router.js'
 import { FlowerRepository, OrderRepository } from './repositories.js'
+import { routes } from './config.js'
 
 import { Flowers } from './views/flowers.js'
 import { Orders } from './views/orders.js'
@@ -30,7 +31,7 @@ const router = new Router(
       }
     },
     {
-      path: '/flowers',
+      path: routes.flowers.url,
       handler: () => {
         flowerRepository.getAll().then(flowers => {
           mount(Flowers(flowers), 'Квіти', ['/css/entityManagment.css', '/css/flowers.css'])
@@ -38,13 +39,13 @@ const router = new Router(
       }
     },
     {
-      path: '/flowers/:flowerId',
+      path: routes.flowers.url + '/:flowerId',
       handler: () => {
         mount(FlowerForm(), 'Форма', ['/css/forms.css', '/css/slider.css', '/css/flowerForm.css'])
       }
     },
     {
-      path: '/orders',
+      path: routes.orders.url,
       handler: () => {
         orderRepository.getAll().then(orders => {
           mount(Orders(orders), 'Замовлення', ['/css/entityManagment.css', '/css/orders.css'])
@@ -52,7 +53,7 @@ const router = new Router(
       },
     },
     {
-      path: '/orders/:orderId',
+      path: routes.orders.url + '/:orderId',
       handler: () => {
         mount(OrderForm(), 'Форма', ['/css/forms.css', '/css/orderForm.css'])
       }

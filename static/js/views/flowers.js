@@ -1,5 +1,5 @@
 import { createElement } from '../layout.js'
-import { navigationOptions } from '../config.js'
+import { routes } from '../config.js'
 import { EntityManagmentBase } from '../components/entityManagment.js'
 
 
@@ -27,7 +27,7 @@ function FlowerCards(flowers) {
 
 export function Flowers(flowers) {
   const cards = FlowerCards(flowers)
-  const main = EntityManagmentBase(navigationOptions.flowers, cards, '/flowers/form')
+  const main = EntityManagmentBase(routes.flowers, cards, '/flowers/form')
 
   return main
 }

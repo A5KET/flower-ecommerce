@@ -1,4 +1,4 @@
-export const navigationOptions = {
+export const routes = {
   flowers: {
     url: '/flowers',
     title: 'Квіти',

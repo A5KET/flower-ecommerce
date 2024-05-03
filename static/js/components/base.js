@@ -1,5 +1,5 @@
 import { createElement } from '../layout.js'
-import { navigationOptions } from '../config.js'
+import { routes } from '../config.js'
 
 
 export function HeaderLogo() {
@@ -66,7 +66,7 @@ export function BaseLayout(main, activeNavigationOption) {
   return createElement(
     { tag: 'body' },
     [
-      Header(Navigation(navigationOptions, activeNavigationOption)),
+      Header(Navigation(routes, activeNavigationOption)),
       main,
       Footer()
     ]
