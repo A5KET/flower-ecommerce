@@ -2,6 +2,8 @@ import { routes } from '../config.js'
 import { EntityManagmentBase } from '../components/entityManagment.js'
 import { createElement } from '../layout.js'
 import { formatObjectValues, toLocaleStringFormat } from '../formats.js'
+import { addRedirectOnClick } from '../listeners.js'
+import { getRelativePath } from '../path.js'
 
 
 const orderOptions = {
@@ -53,17 +55,32 @@ function TableCell(value) {
 
 
 function TableRow(elements) {
-  return createElement(
+  const node = createElement(
     { tag: 'tr'},
     [
       ...elements
     ]
   )
+
+  return node
+}
+
+
+function OrderRow(order, fieldsToDisplay) {
+  const formatedValues = formatObjectValues(order, fieldsToDisplay)
+  const cells = formatedValues.map(value => TableCell(value))
+  const node = TableRow(cells)
+  addRedirectOnClick(node, getRelativePath(order.id))
+
+  return node
 }
 
 
 function OrdersList(orders) {
   const fieldsToDisplay = {
+    id: {
+      text: '№ замовлення'
+    },
     status: {
       text: 'Статус'
     },
@@ -72,19 +89,15 @@ function OrdersList(orders) {
     },
     timeCreated: {
       text: 'Дата створення',
-      format: toLocaleStringFormat("en-GB")
+      format: toLocaleStringFormat('en-GB', { timeZone: 'UTC' })
     },
     totalPrice: {
       text: 'Ціна',
-      format: (price) => price + 'гр'
-    },
-    id: {
-      text: '№ замовлення'
-    },
+      format: (price) => price + ' грн.'
+    }
   }
 
-  const values = orders.map(order => formatObjectValues(order, fieldsToDisplay))
-  const rows = values.map(entityValues => TableRow(entityValues.map(value => TableCell(value))))
+  const rows = orders.map(order => OrderRow(order, fieldsToDisplay))
   
   return createElement(
     { tag: 'table' },
@@ -97,5 +110,5 @@ function OrdersList(orders) {
 
 
 export function Orders(orders) {
-  return EntityManagmentBase(routes.orders, OrdersList(orders), '/orders/form')
+  return EntityManagmentBase(routes.orders, OrdersList(orders), routes.orders.url + '/add')
 }
