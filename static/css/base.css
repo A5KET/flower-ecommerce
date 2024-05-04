@@ -100,3 +100,7 @@ footer {
   background: var(--color-first);
   height: 30px;
 }
+
+.pointer-on-hover:hover {
+  cursor: pointer;
+}
