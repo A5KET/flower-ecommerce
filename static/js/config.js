@@ -1,4 +1,4 @@
-export const routes = {
+export const navigationOptions = {
   flowers: {
     url: '/flowers',
     title: 'Квіти',
@@ -19,4 +19,10 @@ export const routes = {
     title: 'Користувачі',
     icon: '/img/users.svg'
   }
+}
+
+export const styles = {
+  entityManagment: '/css/entityManagment.css',
+  slider: '/css/slider.css',
+  forms: '/css/forms.css'
 }

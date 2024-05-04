@@ -1,5 +1,5 @@
-function defaultRouteChecker(route, path) {
-  const regex = new RegExp('^' + route.replace(/\/:([^\/]+)/g, '/([^\/]+)') + '$')
+function defaultRouteMatcher(route, path) {
+  const regex = new RegExp('^' + route.replace(/\/:([^/]+)/g, '/([^/]+)').replace(/\/\*/g, '/.*') + '$')
 
   return regex.test(path)
 }
@@ -25,11 +25,10 @@ function defaultParamsParser(route, path) {
 
 
 export class Router {
-  constructor(routes, config) {
+  constructor(routes=[], config={}) {
     this.routes = routes
-    this.routeChecker = config.routeChecker || defaultRouteChecker
+    this.routeChecker = config.routeChecker || defaultRouteMatcher
     this.paramsParser = config.paramsParser || defaultParamsParser
-    this.noMatchRoute = config.noMatchRoute
   }
 
   getHandler(path) {
@@ -39,7 +38,12 @@ export class Router {
   handlePath(path) {
     const route = this.getHandler(path)
     const params = this.paramsParser(route.path, path)
+    console.log(path, route)
 
     route.handler(params)
+  }
+
+  registerRoute(route) {
+    this.routes.push(route)
   }
 }
