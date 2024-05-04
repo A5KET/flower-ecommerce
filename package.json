@@ -6,7 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "debug": "DEBUG=express:* node src/index.js",
+    "test": "mocha 'test/**/*.test.js'"
+  },
+  "imports": {
+    "#root/*.js": "./*.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +22,6 @@
     "@stylistic/eslint-plugin-js": "^1.8.0",
     "eslint": "^9.2.0",
     "globals": "^15.1.0",
+    "mocha": "^10.4.0"
   }
 }

@@ -1,9 +1,28 @@
+import { abstract } from './classes.js'
 
 
+class Repository {
+  /**
+   * @abstract
+   */
+  async getAll() {
+    abstract()
+  }
 
-class Repository { 
-  constructor() {
-    this.data = []
+  /**
+   * @abstract
+   * @param {number} id 
+   */
+  async get(id) {
+    abstract()
+  }
+}
+
+
+export class InMemoryRepository extends Repository{ 
+  constructor(data=[]) {
+    super()
+    this.data = data
   }
 
   async getAll() {
@@ -16,7 +35,7 @@ class Repository {
 }
 
 
-export class FlowerRepository extends Repository {
+export class FlowerRepository extends InMemoryRepository {
   constructor() {
     super()
 
@@ -33,7 +52,7 @@ export class FlowerRepository extends Repository {
 }
 
 
-export class OrderRepository extends Repository {
+export class OrderRepository extends InMemoryRepository {
   constructor () {
     super()
 
@@ -49,7 +68,7 @@ export class OrderRepository extends Repository {
             price: 30,
             amount: 20
           }
-        ],
+        ]
       })
     }
   }
