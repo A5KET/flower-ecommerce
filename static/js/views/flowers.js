@@ -1,15 +1,15 @@
 import { createElement } from '../layout.js'
-import { routes } from '../config.js'
+import { navigationOptions } from '../config.js'
 import { EntityManagmentBase } from '../components/entityManagment.js'
 
 
 function FlowerCard(flower) {
   return createElement(
-    { tag: 'a', className: 'flower-card', href: '/flowers/' + flower.id},
+    { tag: 'a', className: 'flower-card', href: '/flowers/' + flower.id },
     [
       createElement({ tag: 'img', className: 'flower-card-thumbnail', src: flower.thumbnail }),
       createElement({ tag: 'span', className: 'flower-card-name', textContent: flower.name }),
-      createElement({ tag: 'span', className: 'flower-card-price', textContent: `${flower.price}гр/шт`})
+      createElement({ tag: 'span', className: 'flower-card-price', textContent: `${flower.price}гр/шт` })
     ]
   )
 }
@@ -27,7 +27,7 @@ function FlowerCards(flowers) {
 
 export function Flowers(flowers) {
   const cards = FlowerCards(flowers)
-  const main = EntityManagmentBase(routes.flowers, cards, '/flowers/form')
+  const main = EntityManagmentBase(navigationOptions.flowers, cards, navigationOptions.flowers.url + '/add')
 
   return main
 }

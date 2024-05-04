@@ -1,5 +1,5 @@
 import { createElement } from '../layout.js'
-import { routes } from '../config.js'
+import { navigationOptions } from '../config.js'
 
 
 export function HeaderLogo() {
@@ -8,7 +8,7 @@ export function HeaderLogo() {
     [
       createElement({ tag: 'img', src: '/img/logo.svg' }),
       createElement({ tag: 'span', className: 'logo-text', textContent: 'FloraShop' }),
-      createElement({ tag: 'span', className: 'logo-subtext', textContent: 'Admin'})
+      createElement({ tag: 'span', className: 'logo-subtext', textContent: 'Admin' })
     ]
   )
 }
@@ -66,7 +66,7 @@ export function BaseLayout(main, activeNavigationOption) {
   return createElement(
     { tag: 'body' },
     [
-      Header(Navigation(routes, activeNavigationOption)),
+      Header(Navigation(navigationOptions, activeNavigationOption)),
       main,
       Footer()
     ]

@@ -18,7 +18,7 @@ export function DateTimeField(field) {
     { tag: 'div', className: 'field' },
     [
       createElement({ tag: 'label', for: field.id, textContent: field.label }),
-      createElement({ tag: 'input', id: field.id, value: convertToDateTimeLocalString(field.value), type:"datetime-local" })
+      createElement({ tag: 'input', id: field.id, value: convertToDateTimeLocalString(field.value), type:'datetime-local' })
     ]
   )
 }
@@ -26,7 +26,7 @@ export function DateTimeField(field) {
 
 export function FormButtons() {
   return createElement(
-    { tag: 'div', className: 'form-buttons'},
+    { tag: 'div', className: 'form-buttons' },
     [
       createElement({ tag: 'button', className: 'delete-button', textContent: 'Видалити' }),
       createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти' })

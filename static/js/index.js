@@ -1,4 +1,5 @@
 import { Router } from './router.js'
+import { FlowerRepository, OrderRepository } from './data/repositories.js'
 import { registerRoutes } from './routes.js'
 
 const origin = window.location.origin

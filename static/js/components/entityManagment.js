@@ -33,8 +33,8 @@ function Pagination() {
     { tag: 'div', className: 'pagination' },
     [
       createElement({ tag: 'img', src: '/img/arrow.svg' }),
-      createElement({ tag: 'span', textContent: '1 2 ... 10'}),
-      createElement({ tag: 'img', className: 'mirrored', src: '/img/arrow.svg'})
+      createElement({ tag: 'span', textContent: '1 2 ... 10' }),
+      createElement({ tag: 'img', className: 'mirrored', src: '/img/arrow.svg' })
     ]
   )
 }

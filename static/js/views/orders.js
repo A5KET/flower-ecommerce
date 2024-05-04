@@ -1,4 +1,4 @@
-import { routes } from '../config.js'
+import { navigationOptions } from '../config.js'
 import { EntityManagmentBase } from '../components/entityManagment.js'
 import { createElement } from '../layout.js'
 import { formatObjectValues, toLocaleStringFormat } from '../formats.js'
@@ -20,8 +20,8 @@ function OrderListFieldHeadingIcon(orderedBy) {
     node.src = '/img/orderAscending.svg'
   }
   else if (orderedBy == orderOptions.descending) {
-      node.src = '/img/orderDescending.svg'
-    }
+    node.src = '/img/orderDescending.svg'
+  }
   else {
     node.src = '/img/orderNone.svg'
   }
@@ -32,7 +32,7 @@ function OrderListFieldHeadingIcon(orderedBy) {
 
 function OrderListFieldHeading(text, orderedBy) {
   return createElement(
-    { tag: 'th', className: 'heading-element-wrapper', scope: 'col'},
+    { tag: 'th', className: 'heading-element-wrapper', scope: 'col' },
     [
       createElement(
         { tag: 'div', className: 'heading-element' },
@@ -48,7 +48,7 @@ function OrderListFieldHeading(text, orderedBy) {
 
 function TableCell(value) {
   return createElement(
-    { tag: 'td'},
+    { tag: 'td' },
     [value]
   )
 }
@@ -56,7 +56,7 @@ function TableCell(value) {
 
 function TableRow(elements) {
   const node = createElement(
-    { tag: 'tr'},
+    { tag: 'tr' },
     [
       ...elements
     ]
@@ -110,5 +110,5 @@ function OrdersList(orders) {
 
 
 export function Orders(orders) {
-  return EntityManagmentBase(routes.orders, OrdersList(orders), routes.orders.url + '/add')
+  return EntityManagmentBase(navigationOptions.orders, OrdersList(orders), navigationOptions.orders.url + '/add')
 }

@@ -32,49 +32,27 @@ function ProductList(products) {
 }
 
 
-function OrderFormMain() {
-  const order = {
-    id: 123456,
-    status: 'Готовий',
-    customer: 'Євсеенко Г. О.',
-    timeCreated: new Date(1713778369000),
-    products: [
-      {
-        name: 'Квітка',
-        price: 30,
-        amount: 20
-      },
-      {
-        name: 'Квітка',
-        price: 30,
-        amount: 20
-      },
-      {
-        name: 'Квітка',
-        price: 30,
-        amount: 20
-      }
-    ]
-  }
-
+function OrderFormMain(order) {
   const fields = [
-    ...[
+    TextInputField(
       {
         id: 'status',
         value: order.status,
-        label: "Статус:"
-      },
+        label: 'Статус:'
+      }
+    ),
+    TextInputField(
       {
         id: 'customer',
         value: order.customer,
-        label: "Замовник:"
+        label: 'Замовник:'
       }
-    ].map(field => TextInputField(field)),
+    ),
     DateTimeField(
       {
         id: 'timeCreated',
         value: order.timeCreated,
-        label: "Дата створення:"
+        label: 'Дата створення:'
       })
   ]
 
