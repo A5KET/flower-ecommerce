@@ -1,12 +1,12 @@
 import express from 'express'
 
-import { FlowerRepository, OrderRepository } from './repositories.js'
+import { FlowerInMemoryRepository, OrderInMemoryRepository } from './repositories.js'
 import { router } from './routes.js'
 
 
 const repositories = {
-  flowers: new FlowerRepository(),
-  orders: new OrderRepository()
+  flowers: new FlowerInMemoryRepository(),
+  orders: new OrderInMemoryRepository()
 }
 
 

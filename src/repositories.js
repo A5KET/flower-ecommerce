@@ -19,7 +19,7 @@ class Repository {
 }
 
 
-export class InMemoryRepository extends Repository{ 
+export class InMemoryRepository extends Repository { 
   constructor(data=[]) {
     super()
     this.data = data
@@ -35,7 +35,7 @@ export class InMemoryRepository extends Repository{
 }
 
 
-export class FlowerRepository extends InMemoryRepository {
+export class FlowerInMemoryRepository extends InMemoryRepository {
   constructor() {
     super()
 
@@ -52,7 +52,7 @@ export class FlowerRepository extends InMemoryRepository {
 }
 
 
-export class OrderRepository extends InMemoryRepository {
+export class OrderInMemoryRepository extends InMemoryRepository {
   constructor () {
     super()
 

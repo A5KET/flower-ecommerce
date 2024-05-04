@@ -10,7 +10,9 @@ router.get('/flowers', (req, res) => {
 
 
 router.get('/flowers/:flowerId', (req, res) => {
-  req.database.flowers.get(req.params.flowerId).then(data => res.json({ data }))
+  const id = Number(req.params.flowerId)
+
+  req.database.flowers.get(id).then(data => res.json({ data }))
 })
 
 
@@ -19,5 +21,7 @@ router.get('/orders', (req, res) => {
 })
 
 router.get('/orders/:orderId', (req, res) => {
-  req.database.orders.get(req.params.orderId).then(data => res.json({ data }))
+  const id = Number(req.params.orderId)
+
+  req.database.orders.get(id).then(data => res.json({ data }))
 })
