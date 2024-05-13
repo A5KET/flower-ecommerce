@@ -49,8 +49,7 @@ export function registerRoutes(router, database) {
       path: navigationOptions.orders.url,
       handler: () => {
         database.orders.getAll().then(orders => {
-          console.log(orders)
-          mount(Orders(orders), 'Замовлення', [styles.entityManagment, '/css/orders.css'])
+          mount(Orders(orders), 'Замовлення', [styles.entityManagment, styles.tables])
         })
       },
     },

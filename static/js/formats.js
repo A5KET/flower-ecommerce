@@ -19,12 +19,14 @@ export function toLocaleStringFormat(locale) {
 
 
 export function formatObjectValues(object, fields) {
-  const values = []
+  const values = {
+    
+  }
 
   for (const field in fields) {
     const format = fields[field].format || defaultFormat
 
-    values.push(format(object[field]))
+    values[field] = format(object[field])
   }
 
   return values

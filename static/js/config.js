@@ -24,5 +24,6 @@ export const navigationOptions = {
 export const styles = {
   entityManagment: '/css/entityManagment.css',
   slider: '/css/slider.css',
-  forms: '/css/forms.css'
+  forms: '/css/forms.css',
+  tables: '/css/tables.css'
 }

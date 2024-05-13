@@ -3,6 +3,5 @@ export function getRelativePath(path, addTrailingSlash=true) {
   currentPath += addTrailingSlash && currentPath.endsWith('/') ? '' : '/'
   const absolutePath = new URL(path, currentPath)
 
-  console.log(currentPath, absolutePath)
   return absolutePath.href
 }
