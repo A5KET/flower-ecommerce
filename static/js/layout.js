@@ -1,7 +1,28 @@
+export function filterProperties(object, predicate) {
+  const filteredObject = {}
+
+  for (const key in object) {
+    const value = object[key]
+
+    if (predicate(value)) {
+      filteredObject[key] = value
+    }
+  }
+
+  return filteredObject
+}
+
+
+export function filterUndefinedProperties(object) {
+  return filterProperties(object, property => property !== undefined)
+}
+
+
 export function createElement(props, children=[]) {
   const node = document.createElement(props.tag)
+  const filteredProps = filterUndefinedProperties(props)
 
-  Object.assign(node, props)
+  Object.assign(node, filteredProps)
 
   for (const child of children) {
     const childNode = typeof child === 'object' ? child : createTextElement(child)
