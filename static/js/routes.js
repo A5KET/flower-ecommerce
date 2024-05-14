@@ -1,4 +1,4 @@
-import { navigationOptions, styles } from './config.js'
+import { navigationOptions, styles, statusOption } from './config.js'
 import { Flowers } from './views/flowers.js'
 import { Orders } from './views/orders.js'
 import { Index } from './views/index.js'
@@ -63,7 +63,7 @@ export function registerRoutes(router, database) {
       path: navigationOptions.orders.url + '/:orderId',
       handler: (params) => {
         database.orders.get(params.orderId).then(order => {
-          mount(OrderForm(order), 'Форма', [styles.forms, '/css/orderForm.css'])
+          mount(OrderForm(Object.values(statusOption), order), 'Форма', [styles.forms, '/css/orderForm.css'])
         })
       }
     },

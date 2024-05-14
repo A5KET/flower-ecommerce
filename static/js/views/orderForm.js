@@ -33,25 +33,26 @@ function ProductList(products) {
 
 
 function OrderFormMain(order) {
+  console.log(order)
   const fields = [
     TextInputField(
       {
         id: 'status',
-        value: order.status,
+        value: order?.value,
         label: 'Статус:'
       }
     ),
     TextInputField(
       {
         id: 'customer',
-        value: order.customer,
+        value: order?.value,
         label: 'Замовник:'
       }
     ),
     DateTimeField(
       {
         id: 'timeCreated',
-        value: order.timeCreated,
+        value: order ? order.timeCreated : new Date(),
         label: 'Дата створення:'
       })
   ]
@@ -59,15 +60,25 @@ function OrderFormMain(order) {
   return createElement(
     { tag: 'main' },
     [
-      createElement({ tag: 'h1', textContent: `Замовлення №${order.id}` }),
+      createElement({ tag: 'h1', textContent: `Замовлення №${order ? order.id : ''}` }),
       Fieldset(fields),
-      ProductList(order.products),
+      ProductList(order ? order.products : []),
       FormButtons()
     ]
   )
 }
 
 
-export function OrderForm(order) {
+export function OrderForm(statusOptions, order) {
   return BaseLayout(OrderFormMain(order))
+}
+
+export function NewOrderForm(statusOptions) {
+  return OrderForm(
+    statusOptions,
+    {
+      id: '',
+      status: ''
+    }
+  )
 }

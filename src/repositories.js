@@ -14,6 +14,7 @@ class Repository {
    * @param {number} id 
    */
   async get(id) {
+    id
     abstract()
   }
 }
@@ -71,5 +72,31 @@ export class OrderInMemoryRepository extends InMemoryRepository {
         ]
       })
     }
+  }
+}
+
+
+export class StatusOptionRepository extends InMemoryRepository {
+  constructor ( ) {
+    super()
+
+    this.data = [
+      {
+        id: 0,
+        name:  'Створено'
+      },
+      {
+        id: 1,
+        name:  'Обробляється'
+      },
+      {
+        id: 2,
+        name:  'Виконано'
+      },
+      {
+        id: 3,
+        name:  'Скасовано'
+      },
+    ]
   }
 }
