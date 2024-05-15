@@ -5,7 +5,7 @@ import { Index } from './views/index.js'
 import { mountLayout } from './layout.js'
 import { NoMatch } from './views/noMatch.js'
 import { FlowerForm } from './views/flowerForm.js'
-import { OrderForm } from './views/orderForm.js'
+import { NewOrderForm, OrderForm } from './views/orderForm.js'
 
 
 const mount = (layout, title, styles = []) => {
@@ -56,14 +56,14 @@ export function registerRoutes(router, database) {
     {
       path: navigationOptions.orders.url + '/add',
       handler: () => {
-        mount(OrderForm(), 'Створити замовлення', [styles.forms, '/css/orderForm.css'])
+        mount(NewOrderForm(statusOption), 'Створити замовлення', [styles.forms, '/css/orderForm.css'])
       }
     },
     {
       path: navigationOptions.orders.url + '/:orderId',
       handler: (params) => {
         database.orders.get(params.orderId).then(order => {
-          mount(OrderForm(Object.values(statusOption), order), 'Форма', [styles.forms, '/css/orderForm.css'])
+          mount(OrderForm(order, statusOption), 'Форма', [styles.forms, '/css/orderForm.css'])
         })
       }
     },

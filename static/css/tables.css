@@ -26,7 +26,7 @@ td, .heading-element-wrapper {
 
 td:last-child, .heading-element-wrapper:last-child {
   border-right: none;
-}
+} 
 
 .heading-element-wrapper {
   border-color: var(--color-third);
@@ -36,8 +36,4 @@ td:last-child, .heading-element-wrapper:last-child {
   display: flex;
   justify-content: space-between;
   font-weight: 700;
-}
-
-.heading-icon {
-
 }

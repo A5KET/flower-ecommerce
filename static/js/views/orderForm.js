@@ -1,5 +1,5 @@
 import { BaseLayout } from '../components/base.js'
-import { Fieldset, FormButtons, TextInputField, DateTimeField } from '../components/forms.js'
+import { Fieldset, FormButtons, TextInputField, DateTimeField, SelectField } from '../components/forms.js'
 import { createElement } from '../layout.js'
 
 
@@ -32,27 +32,27 @@ function ProductList(products) {
 }
 
 
-function OrderFormMain(order) {
-  console.log(order)
+function OrderFormMain(order, statusOptions) {
   const fields = [
-    TextInputField(
+    SelectField(
       {
         id: 'status',
-        value: order?.value,
+        options: statusOptions,
+        active: order.status,
         label: 'Статус:'
       }
     ),
     TextInputField(
       {
         id: 'customer',
-        value: order?.value,
+        value: order.customer,
         label: 'Замовник:'
       }
     ),
     DateTimeField(
       {
         id: 'timeCreated',
-        value: order ? order.timeCreated : new Date(),
+        value: order.timeCreated || new Date(),
         label: 'Дата створення:'
       })
   ]
@@ -60,25 +60,19 @@ function OrderFormMain(order) {
   return createElement(
     { tag: 'main' },
     [
-      createElement({ tag: 'h1', textContent: `Замовлення №${order ? order.id : ''}` }),
+      createElement({ tag: 'h1', textContent: `Замовлення №${order.id || ''}` }),
       Fieldset(fields),
-      ProductList(order ? order.products : []),
+      ProductList(order.products || []),
       FormButtons()
     ]
   )
 }
 
 
-export function OrderForm(statusOptions, order) {
-  return BaseLayout(OrderFormMain(order))
+export function OrderForm(order, statusOptions) {
+  return BaseLayout(OrderFormMain(order, statusOptions))
 }
 
 export function NewOrderForm(statusOptions) {
-  return OrderForm(
-    statusOptions,
-    {
-      id: '',
-      status: ''
-    }
-  )
+  return OrderForm({ }, statusOptions)
 }

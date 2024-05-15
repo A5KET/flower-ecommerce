@@ -1,5 +1,6 @@
 import { createElement } from '../layout.js'
 import { convertToDateTimeLocalString } from '../formats.js'
+import { objectMap } from '../utils.js'
 
 
 export function TextInputField(field) {
@@ -7,7 +8,7 @@ export function TextInputField(field) {
     { tag: 'div', className: 'field' },
     [
       createElement({ tag: 'label', for: field.id, textContent: field.label }),
-      createElement({ tag: 'input', id: field.id, value: field?.value })
+      createElement({ tag: 'input', className: 'field-input', id: field.id, value: field?.value })
     ]
   )
 }
@@ -18,7 +19,35 @@ export function DateTimeField(field) {
     { tag: 'div', className: 'field' },
     [
       createElement({ tag: 'label', for: field.id, textContent: field.label }),
-      createElement({ tag: 'input', id: field.id, value: convertToDateTimeLocalString(field?.value), type:'datetime-local' })
+      createElement({ tag: 'input', className: 'field-input', id: field.id, value: convertToDateTimeLocalString(field?.value), type: 'datetime-local' })
+    ]
+  )
+}
+
+
+export function SelectOption(value, text, isActive) {
+  return createElement(
+    { tag: 'option', value: value, active: isActive },
+    [
+      text
+    ]
+  )
+}
+
+
+export function SelectField(field) {
+  const options = field.options
+
+  return createElement(
+    { tag: 'div', className: 'field select-field' },
+    [
+      createElement({ tag: 'label', for: field.id, textContent: field.label }),
+      createElement(
+        { tag: 'select', className: 'field-input', id: field.id },
+        [
+          ...objectMap((key, value) => SelectOption(key, value, value === field.active), options) 
+        ]
+      )
     ]
   )
 }
