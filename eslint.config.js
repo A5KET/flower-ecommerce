@@ -16,6 +16,7 @@ export default [
       semi: ['error', 'never'],
       quotes: ['error', 'single'],
       '@stylistic/js/object-curly-spacing': ['error', 'always'],
+      'no-unused-vars': ['off']
     }
   }
 ]
