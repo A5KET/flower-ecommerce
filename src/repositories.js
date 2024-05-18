@@ -1,4 +1,4 @@
-import { abstract } from './classes.js'
+import { AbstractError } from './errors.js'
 
 
 class Repository {
@@ -6,7 +6,7 @@ class Repository {
    * @abstract
    */
   async getAll() {
-    abstract()
+    throw new AbstractError()
   }
 
   /**
@@ -14,8 +14,7 @@ class Repository {
    * @param {number} id 
    */
   async get(id) {
-    id
-    abstract()
+    throw new AbstractError()
   }
 }
 
