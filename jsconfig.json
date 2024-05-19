@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "checkJs": true
+    },
+    "include": [
+        "src/**/*.js",
+        "static/js/**/*.js", 
+        "types/**/*.js"      
+    ]
+}
