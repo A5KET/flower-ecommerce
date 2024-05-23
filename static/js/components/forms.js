@@ -53,12 +53,18 @@ export function SelectField(field) {
 }
 
 
-export function FormButtons() {
+/**
+ * 
+ * @param {Function} onSave 
+ * @param {Function} onRemove 
+ * @returns 
+ */
+export function FormButtons(onSave, onRemove) {
   return createElement(
     { tag: 'div', className: 'form-buttons' },
     [
-      createElement({ tag: 'button', className: 'delete-button', textContent: 'Видалити' }),
-      createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти' })
+      createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти', onClick: onSave }),
+      onRemove ? createElement({ tag: 'button', className: 'delete-button', textContent: 'Видалити', onClick: onRemove }) : ''
     ]
   )
 }
