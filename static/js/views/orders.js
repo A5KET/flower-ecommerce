@@ -3,21 +3,29 @@ import { EntityManagmentTable, TableInfo, orderOption } from '../components/tabl
 import { toLocaleStringFormat } from '../formats.js'
 
 
+/**
+ * 
+ * @param {Order[]} orders 
+ * @returns 
+ */
 export function Orders(orders) {
+  console.log(orders)
   const tableInfo = new TableInfo(
     {
       id: {
         heading: '№ замовлення'
       },
       status: {
-        heading: 'Статус'
+        heading: 'Статус',
+        format: (status) => status.name
       },
       customer: {
-        heading: 'Замовник'
+        heading: 'Замовник',
+        format: (customer) => customer.name
       },
       timeCreated: {
         heading: 'Дата створення',
-        format: toLocaleStringFormat('en-GB', { timeZone: 'UTC' })
+        format: toLocaleStringFormat('en-GB')
       },
       totalPrice: {
         heading: 'Ціна',

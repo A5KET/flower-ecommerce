@@ -1,101 +1,80 @@
-import { AbstractError } from './errors.js'
+import { Database } from './database.js'
+import { renameProperty } from './utils.js'
 
 
-class Repository {
+export class Repository {
   /**
-   * @abstract
+   * 
+   * @param {Database} db
    */
-  async getAll() {
-    throw new AbstractError()
-  }
-
-  /**
-   * @abstract
-   * @param {number} id 
-   */
-  async get(id) {
-    throw new AbstractError()
+  constructor(db) {
+    this.db = db
   }
 }
 
 
-export class InMemoryRepository extends Repository { 
-  constructor(data=[]) {
-    super()
-    this.data = data
+export class OrderRepository extends Repository {
+  async get(id) {
+    const order = await this.db.getOrder(id)
+
+    if (!order) {
+      return undefined
+    }
+
+    const orderFlowers = await this.db.getOrderFlowers(order.id)
+    order.products = orderFlowers
+
+    return order
   }
 
   async getAll() {
-    return this.data
-  }
+    const orders = await this.db.getOrders()
+    const ordersFlowers = orders.map(order => this.db.getOrderFlowers(order.id))
 
-  async get(id) {
-    return this.data.find((value => value.id === id))
-  }
-}
+    await Promise.all(ordersFlowers).then(async flowers => {
+      for (let i = 0; i < orders.length; i++) {
+        const order = orders[i]
+        order.products = flowers[i]
 
+        order.customer = await this.db.getCustomer(order.customerId)
+        delete order.customerId
 
-export class FlowerInMemoryRepository extends InMemoryRepository {
-  constructor() {
-    super()
-
-    for (let i = 0; i < 12; i++) {
-      this.data.push({
-        id: i,
-        name: 'Квітка',
-        price: 200,
-        thumbnail: '/img/flower.jpg'
+        order.status = await this.db.getStatus(order.statusId)
+        delete order.statusId
       }
-      )
-    }
+    })
+
+    return orders
   }
 }
 
 
-export class OrderInMemoryRepository extends InMemoryRepository {
-  constructor () {
-    super()
+export class FlowerRepository extends Repository {
+  async get(id) {
+    const flower = await this.db.getFlower(id)
 
-    for (let i = 0; i < 22; i++) {
-      this.data.push({
-        id: i,
-        status: 'Готовий',
-        customer: 'Євсеенко Г. О.',
-        timeCreated: new Date(1713778369000),
-        products: [
-          {
-            name: 'Квітка',
-            price: 30,
-            amount: 20
-          }
-        ]
-      })
+    if (!flower) {
+      return undefined
     }
+
+    flower.color = await this.db.getColor(flower.color_id)
+    delete flower.colorId
+
+    return flower
   }
-}
 
+  async getAll() {
+    const flowers = await this.db.getFlowers()
+    const flowersColors = flowers.map(flower => this.db.getColor(flower.colorId))
 
-export class StatusOptionRepository extends InMemoryRepository {
-  constructor ( ) {
-    super()
+    await Promise.all(flowersColors).then(colors => {
+      for (let i = 0; i < flowers.length; i++) {
+        const flower = flowers[i]
+        flower.color = colors[i]
+        delete flower.colorId
+      }
+    })
 
-    this.data = [
-      {
-        id: 0,
-        name:  'Створено'
-      },
-      {
-        id: 1,
-        name:  'Обробляється'
-      },
-      {
-        id: 2,
-        name:  'Виконано'
-      },
-      {
-        id: 3,
-        name:  'Скасовано'
-      },
-    ]
+    return flowers
   }
 }
