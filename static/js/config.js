@@ -1,3 +1,6 @@
+/**
+ * @type {NavigationOptions}
+ */
 export const navigationOptions = {
   flowers: {
     url: '/flowers',
@@ -21,6 +24,11 @@ export const navigationOptions = {
   }
 }
 
+
+/**
+ * @readonly
+ * @enum {string}
+ */
 export const styles = {
   entityManagment: '/css/entityManagment.css',
   slider: '/css/slider.css',
@@ -28,7 +36,10 @@ export const styles = {
   tables: '/css/tables.css'
 }
 
-
+/**
+ * @readonly
+ * @type {StatusOptions}
+ */
 export const statusOption = {
   created: 'Створено',
   processing: 'Оброблється',

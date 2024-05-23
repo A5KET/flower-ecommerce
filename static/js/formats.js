@@ -1,3 +1,7 @@
+/**
+ * 
+ * @param {Date} date 
+ */
 export function convertToDateTimeLocalString(date) {
   if (!date) {
     return undefined
@@ -13,15 +17,31 @@ export function convertToDateTimeLocalString(date) {
 }
 
 
+/**
+ * @type {Formatter}
+ */
 export function defaultFormat(value) {
   return value
 }
 
+
+/**
+ * @param {string} locale 
+ */
 export function toLocaleStringFormat(locale) {
+  /**
+   * @param {Date} value
+   */
   return (value) => value.toLocaleString(locale)
 }
 
 
+/**
+ * 
+ * @param {Object} object 
+ * @param {FormField[]} fields 
+ * @returns 
+ */
 export function formatObjectValues(object, fields) {
   const values = {
     
