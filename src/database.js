@@ -1,4 +1,5 @@
-import { renamePropertiesFromSnakeCaseToCamelCase } from './string.js'
+import { NotFoundError } from './errors.js'
+import { renamePropertiesFromCamelCaseToSnakeCase, renamePropertiesFromSnakeCaseToCamelCase } from './string.js'
 
 
 export class Database {
@@ -7,11 +8,7 @@ export class Database {
   }
 
   async selectOne(table, id) {
-    return this.executeSelectOne(`
-      SELECT *
-      FROM "${table}"
-      WHERE id = $1
-    `, [id])
+    return this.executeSelectOne(`SELECT * FROM "${table}" WHERE id = $1`, [id])
   }
 
   async selectAll(table) {
@@ -24,6 +21,13 @@ export class Database {
   async executeSelectOne(query, values=[]) {
     return this.client.query(query, values)
       .then(result => result.rows[0])
+      .then(entity => {
+        if (!entity) {
+          throw new NotFoundError()
+        }
+
+        return entity
+      })
       .then(result => {
         renamePropertiesFromSnakeCaseToCamelCase(result)
 

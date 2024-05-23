@@ -57,7 +57,7 @@ export class FlowerRepository extends Repository {
       return undefined
     }
 
-    flower.color = await this.db.getColor(flower.color_id)
+    flower.color = await this.db.getColor(flower.colorId)
     delete flower.colorId
 
     return flower
