@@ -5,9 +5,17 @@ import { Index } from './views/index.js'
 import { mountLayout } from './layout.js'
 import { NoMatch } from './views/noMatch.js'
 import { FlowerForm } from './views/flowerForm.js'
-import { NewOrderForm, OrderForm } from './views/orderForm.js'
+import { NewOrderFormLayout, OrderFormLayout } from './views/orderForm.js'
+import { Router } from './router.js'
+import { Repository } from './data/repositories.js'
 
 
+/**
+ * 
+ * @param {HTMLElement} layout 
+ * @param {string} title 
+ * @param {string[]} styles 
+ */
 const mount = (layout, title, styles = []) => {
   const defaultStyles = ['/css/base.css']
 
@@ -15,7 +23,30 @@ const mount = (layout, title, styles = []) => {
 }
 
 
+/**
+ * 
+ * @param {Router} router 
+ * @param {{ [key: string]: Repository }} database 
+ */
 export function registerRoutes(router, database) {
+  /** @param {Order} order */
+  function saveNewOrder(order) {
+    database.orders.add(order)
+  }
+
+  /** @param {Order} order */
+  function updateOrder(order) {
+    database.orders.update(order)
+  }
+
+  /** @param {Order} order */
+  function removeOrder(order) {
+    database.orders.remove(order.id)
+  }
+
+  /**
+   * @type {Route[]}
+   */
   const routes = [
     {
       path: '/',
@@ -56,14 +87,14 @@ export function registerRoutes(router, database) {
     {
       path: navigationOptions.orders.url + '/add',
       handler: () => {
-        mount(NewOrderForm(statusOption), 'Створити замовлення', [styles.forms, '/css/orderForm.css'])
+        mount(NewOrderFormLayout(statusOption, saveNewOrder), 'Створити замовлення', [styles.forms, '/css/orderForm.css'])
       }
     },
     {
       path: navigationOptions.orders.url + '/:orderId',
       handler: (params) => {
         database.orders.get(params.orderId).then(order => {
-          mount(OrderForm(order, statusOption), 'Форма', [styles.forms, '/css/orderForm.css'])
+          mount(OrderFormLayout(order, statusOption, updateOrder, removeOrder), 'Форма', [styles.forms, '/css/orderForm.css'])
         })
       }
     },
