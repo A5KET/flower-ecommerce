@@ -21,8 +21,7 @@ export class OrderRepository extends Repository {
       return undefined
     }
 
-    const orderFlowers = await this.db.getOrderFlowers(order.id)
-    order.products = orderFlowers
+    order.products = await this.db.getOrderFlowers(order.id)
 
     return order
   }
@@ -35,46 +34,24 @@ export class OrderRepository extends Repository {
       for (let i = 0; i < orders.length; i++) {
         const order = orders[i]
         order.products = flowers[i]
-
-        order.customer = await this.db.getCustomer(order.customerId)
-        delete order.customerId
-
-        order.status = await this.db.getStatus(order.statusId)
-        delete order.statusId
       }
     })
 
     return orders
+  }
+
+  async add(order) {
+    this.db.addOrder(order)
   }
 }
 
 
 export class FlowerRepository extends Repository {
   async get(id) {
-    const flower = await this.db.getFlower(id)
-
-    if (!flower) {
-      return undefined
-    }
-
-    flower.color = await this.db.getColor(flower.colorId)
-    delete flower.colorId
-
-    return flower
+    return this.db.getFlower(id)
   }
 
   async getAll() {
-    const flowers = await this.db.getFlowers()
-    const flowersColors = flowers.map(flower => this.db.getColor(flower.colorId))
-
-    await Promise.all(flowersColors).then(colors => {
-      for (let i = 0; i < flowers.length; i++) {
-        const flower = flowers[i]
-        flower.color = colors[i]
-        delete flower.colorId
-      }
-    })
-
-    return flowers
+    return this.db.getFlowers()
   }
 }

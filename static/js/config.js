@@ -41,8 +41,8 @@ export const styles = {
  * @type {StatusOptions}
  */
 export const statusOption = {
-  created: 'Створено',
-  processing: 'Оброблється',
+  new: 'Новий',
+  processing: 'Обробляється',
   done: 'Виконано',
   canceled: 'Скасовано'
 }
