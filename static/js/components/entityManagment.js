@@ -1,4 +1,4 @@
-import { BaseLayout } from './base.js'
+import { AdminBaseLayout } from '../admin/components/base.js'
 import { createElement } from '../layout.js'
 
 
@@ -11,7 +11,7 @@ export function Searchbar() {
         { tag: 'button', type: 'submit' },
         [
           createElement({ tag: 'img', src: '/img/loupe.svg' })
-        ] 
+        ]
       )
     ]
   )
@@ -40,28 +40,34 @@ function Pagination() {
 }
 
 
-export function EntityManagmentBase(activeNavigationOption, content, newEntityFormLink) {
-  const main =
-    createElement(
-      { tag: 'main' },
-      [
-        Filter(),
-        createElement(
-          { tag: 'div', className: 'content-wrapper' },
-          [
-            createElement(
-              { tag: 'div', className: 'topbar-wrapper' },
-              [
-                Searchbar(),
-                createElement({ tag: 'a', className: 'form-link', href: newEntityFormLink, textContent: 'Додати' })
-              ]
-            ),
-            content,
-            Pagination()
-          ]
-        ),
-      ]
-    )
+/**
+ * 
+ * @param {NavigationOption} activeNavigationOption 
+ * @param {HTMLElement} content 
+ * @param {string} newEntityFormHref 
+ * @returns 
+ */
+export function EntityManagmentBase(activeNavigationOption, content, newEntityFormHref) {
+  const main = createElement(
+    { tag: 'main' },
+    [
+      Filter(),
+      createElement(
+        { tag: 'div', className: 'content-wrapper' },
+        [
+          createElement(
+            { tag: 'div', className: 'topbar-wrapper' },
+            [
+              Searchbar(),
+              createElement({ tag: 'a', className: 'form-link', href: newEntityFormHref, textContent: 'Додати' })
+            ]
+          ),
+          content,
+          Pagination()
+        ]
+      ),
+    ]
+  )
 
-  return BaseLayout(main, activeNavigationOption)
+  return AdminBaseLayout(main, activeNavigationOption)
 }

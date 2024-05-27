@@ -1,7 +1,7 @@
-import { BaseLayout } from '../components/base.js'
+import { AdminBaseLayout } from '../admin/components/base.js'
 import { createElement } from '../layout.js'
 
 
 export function NoMatch() {
-  return BaseLayout(createElement({ tag: 'main' }, ['404']))
+  return AdminBaseLayout(createElement({ tag: 'main' }, ['404']))
 }

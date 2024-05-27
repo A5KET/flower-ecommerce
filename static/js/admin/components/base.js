@@ -1,10 +1,10 @@
-import { createElement } from '../layout.js'
-import { navigationOptions } from '../config.js'
+import { createElement } from '../../layout.js'
+import { adminNavigationOptions } from '../../config.js'
 
 
-export function HeaderLogo() {
+export function AdminHeaderLogo(indexUrl) {
   return createElement(
-    { tag: 'a', className: 'header-logo', href: '/' },
+    { tag: 'a', className: 'header-logo', href: indexUrl },
     [
       createElement({ tag: 'img', src: '/img/logo.svg' }),
       createElement({ tag: 'span', className: 'logo-text', textContent: 'FloraShop' }),
@@ -35,14 +35,14 @@ export function Navigation(options, activeOption) {
 }
 
 
-export function Header(navigation) {
+export function Header(navigation, indexUrl) {
   return createElement(
     { tag: 'header' },
     [
       createElement(
         { tag: 'div', className: 'logo-wrapper' },
         [
-          HeaderLogo()
+          AdminHeaderLogo(indexUrl)
         ]
       ),
       createElement(
@@ -62,11 +62,11 @@ export function Footer() {
 }
 
 
-export function BaseLayout(main, activeNavigationOption) {
+export function AdminBaseLayout(main, activeNavigationOption) {
   return createElement(
     { tag: 'body' },
     [
-      Header(Navigation(navigationOptions, activeNavigationOption)),
+      Header(Navigation(adminNavigationOptions, activeNavigationOption), '/admin'),
       main,
       Footer()
     ]

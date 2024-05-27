@@ -1,3 +1,6 @@
+import { mountLayout } from './layout.js'
+
+
 /**
  * @template V
  * @callback ObjectMapCallback
@@ -20,4 +23,11 @@ export function objectMap(callback, object) {
   }
 
   return result
+}
+
+
+export const mount = (layout, title, styles = []) => {
+  const defaultStyles = ['/css/base.css']
+
+  mountLayout(layout, title + ' | FloraShop Admin', defaultStyles.concat(styles))
 }

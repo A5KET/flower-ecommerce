@@ -1,10 +1,15 @@
-import { createElement } from '../layout.js'
-import { BaseLayout } from '../components/base.js'
-import { FormButtons, TextInputField } from '../components/forms.js'
-import { ImageSlider } from '../components/slider.js'
-import { Fieldset } from '../components/forms.js'
+import { createElement } from '../../layout.js'
+import { AdminBaseLayout } from '../components/base.js'
+import { FormButtons, TextInputField } from '../../components/forms.js'
+import { ImageSlider } from '../../components/slider.js'
+import { Fieldset } from '../../components/forms.js'
 
 
+/**
+ * 
+ * @param {Flower} flower 
+ * @returns 
+ */
 function FlowerFormMain(flower) {
   const sliderImages = [
     {
@@ -42,7 +47,7 @@ function FlowerFormMain(flower) {
     [
       createElement(
         { tag: 'form' },
-        [      
+        [
           ImageSlider(sliderImages),
           Fieldset(textFields.map(field => TextInputField(field))),
           FormButtons()
@@ -53,6 +58,11 @@ function FlowerFormMain(flower) {
 }
 
 
+/**
+ * 
+ * @param {Flower | Object} flower 
+ * @returns 
+ */
 export function FlowerForm(flower) {
-  return BaseLayout(FlowerFormMain(flower))
+  return AdminBaseLayout(FlowerFormMain(flower))
 }

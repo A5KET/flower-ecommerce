@@ -59,4 +59,11 @@ export class Router {
   registerRoute(route) {
     this.routes.push(route)
   }
+
+  use(prefix, routes) {
+    for (const route of routes) {
+      route.path = prefix + route.path
+      this.registerRoute(route)
+    }
+  }
 }

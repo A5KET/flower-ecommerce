@@ -1,14 +1,14 @@
 /**
  * @type {NavigationOptions}
  */
-export const navigationOptions = {
+export const adminNavigationOptions = {
   flowers: {
-    url: '/flowers',
+    url: '/admin/flowers',
     title: 'Квіти',
     icon: '/img/flower.svg'
   },
   orders: {
-    url: '/orders',
+    url: '/admin/orders',
     title: 'Замовлення',
     icon: '/img/order.svg'
   },

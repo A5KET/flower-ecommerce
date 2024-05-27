@@ -1,6 +1,6 @@
-import { navigationOptions } from '../config.js'
-import { EntityManagmentTable, TableInfo, orderOption } from '../components/tables.js'
-import { toLocaleStringFormat } from '../formats.js'
+import { adminNavigationOptions } from '../../config.js'
+import { EntityManagmentTable, TableInfo, orderOption } from '../../components/tables.js'
+import { toLocaleStringFormat } from '../../formats.js'
 
 
 /**
@@ -36,5 +36,5 @@ export function Orders(orders) {
     }
   )
 
-  return EntityManagmentTable(navigationOptions.orders, navigationOptions.orders.url + '/add', tableInfo, orders)
+  return EntityManagmentTable(adminNavigationOptions.orders, adminNavigationOptions.orders.url + '/add', tableInfo, orders)
 }
