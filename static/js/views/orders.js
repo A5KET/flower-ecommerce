@@ -17,13 +17,11 @@ export function Orders(orders) {
       },
       status: {
         heading: 'Статус',
-        format: (status) => status.name
       },
       customer: {
         heading: 'Замовник',
-        format: (customer) => customer.name
       },
-      timeCreated: {
+      created: {
         heading: 'Дата створення',
         format: toLocaleStringFormat('en-GB')
       },

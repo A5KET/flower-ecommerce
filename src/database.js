@@ -23,7 +23,10 @@ export class Database {
       .then(result => result.rows[0])
       .then(entity => {
         if (!entity) {
-          throw new NotFoundError()
+          const error = new NotFoundError(`"${query}" was not found`)
+          console.error(error)
+
+          return error
         }
 
         return entity
@@ -53,14 +56,6 @@ export class Database {
     return this.selectOne('flower', id)
   }
 
-  async getColors() {
-    return this.selectAll('color')
-  }
-
-  async getColor(id) {
-    return this.selectOne('color', id)
-  }
-
   async getOrders() {
     return this.selectAll('order')
   }
@@ -78,11 +73,7 @@ export class Database {
     `, [orderId])
   }
 
-  async getCustomer(id) {
-    return this.selectOne('customer', id)
-  }
-
-  async getStatus(id) {
-    return this.selectOne('status', id)
+  async addOrder(order) {
+    return this.insert('order', order, ['statusId', 'customerId', 'timeCreated'])
   }
 }

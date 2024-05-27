@@ -85,16 +85,16 @@ function OrderFormMain(order, statusOptions) {
   const fields = [
     SelectField(
       {
-        id: 'status',
+        name: 'status',
         options: statusOptions,
-        active: order.status,
+        activeOption: order.status,
         label: 'Статус:',
         required: true 
       }
     ),
     TextInputField(
       {
-        id: 'customer',
+        name: 'customer',
         value: order.customer,
         label: 'Замовник:',
         required: true
@@ -102,8 +102,8 @@ function OrderFormMain(order, statusOptions) {
     ),
     DateTimeField(
       {
-        id: 'timeCreated',
-        value: order.timeCreated || new Date(),
+        name: 'timeCreated',
+        value: order.created ? new Date(order.created) : new Date(),
         label: 'Дата створення:',
         required: true
       })
