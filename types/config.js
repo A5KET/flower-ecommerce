@@ -8,3 +8,8 @@
 /**
  * @typedef {{ [key: string]: NavigationOption }} NavigationOptions
  */
+
+
+/**
+ * @typedef {{ [key: string]: string }} StatusOptions
+ */
