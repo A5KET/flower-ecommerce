@@ -1,5 +1,5 @@
 import { mount } from '../utils.js'
-import { NoMatch } from '../views/noMatch.js'
+import { NoMatch } from './views/noMatch.js'
 
 
 export function getCommonRoutes() {

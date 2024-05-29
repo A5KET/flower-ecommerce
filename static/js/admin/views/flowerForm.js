@@ -1,8 +1,8 @@
 import { createElement } from '../../layout.js'
 import { AdminBaseLayout } from '../components/base.js'
-import { FormButtons, TextInputField } from '../../components/forms.js'
-import { ImageSlider } from '../../components/slider.js'
-import { Fieldset } from '../../components/forms.js'
+import { FormButtons, TextInputField } from '../../common/components/forms.js'
+import { ImageSlider } from '../../common/components/slider.js'
+import { Fieldset } from '../../common/components/forms.js'
 
 
 /**

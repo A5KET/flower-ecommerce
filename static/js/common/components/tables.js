@@ -1,8 +1,8 @@
-import { createElement } from '../layout.js'
-import { formatObjectValues } from '../formats.js'
+import { createElement } from '../../layout.js'
+import { formatObjectValues } from '../../formats.js'
 import { EntityManagmentBase } from './entityManagment.js'
-import { addRedirectOnClick } from '../listeners.js'
-import { getRelativePath } from '../path.js'
+import { addRedirectOnClick } from '../../listeners.js'
+import { getRelativePath } from '../../path.js'
 
 
 export const orderOption = {
@@ -23,6 +23,7 @@ export class TableInfo {
 
 
 function HeadingIcon(orderBy) {
+  /** @type {LayoutElement} */
   const node = createElement({ tag: 'img', className: 'heading-icon' })
 
   if (orderBy == orderOption.ascending) {
@@ -87,7 +88,7 @@ export function EntityTable(tableInfo, entities) {
     const cells = []
 
     for (const value of values) {
-      cells.push(TableCell(value))
+      cells.push(TableCell(String(value)))
     }
 
     const row = TableRow(cells)

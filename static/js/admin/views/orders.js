@@ -1,5 +1,5 @@
 import { adminNavigationOptions } from '../../config.js'
-import { EntityManagmentTable, TableInfo, orderOption } from '../../components/tables.js'
+import { EntityManagmentTable, TableInfo, orderOption } from '../../common/components/tables.js'
 import { toLocaleStringFormat } from '../../formats.js'
 
 

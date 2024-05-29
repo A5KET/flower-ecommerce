@@ -65,6 +65,10 @@ export function createElement(props, children = []) {
   Object.assign(node, filteredProps)
 
   for (const child of children) {
+    if (child == undefined) {
+      continue
+    }
+
     const childNode = typeof child === 'object' ? child : createTextElement(child)
     // @ts-ignore
     node.appendChild(childNode)

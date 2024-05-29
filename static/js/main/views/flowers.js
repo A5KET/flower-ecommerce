@@ -1,6 +1,6 @@
-import { createElement } from '../../layout.js'
-import { adminNavigationOptions } from '../../config.js'
 import { EntityManagmentBase } from '../../common/components/entityManagment.js'
+import { mainNavigationOptions } from '../../config.js'
+import { createElement } from '../../layout.js'
 import { getRelativePath } from '../../path.js'
 
 
@@ -21,14 +21,9 @@ function FlowerCard(flower, href) {
 }
 
 
-/**
- * 
- * @param {Flower[]} flowers 
- * @returns 
- */
-export function Flowers(flowers) {
+export function MainFlowers(flowers) {
   return EntityManagmentBase(
-    adminNavigationOptions.flowers,
+    mainNavigationOptions.flowers,
     createElement(
       { tag: 'div', className: 'flower-cards' },
       [

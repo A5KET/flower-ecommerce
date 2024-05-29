@@ -1,5 +1,5 @@
-import { AdminBaseLayout } from '../admin/components/base.js'
-import { createElement } from '../layout.js'
+import { AdminBaseLayout } from '../../admin/components/base.js'
+import { createElement } from '../../layout.js'
 
 
 export function Searchbar() {
@@ -44,7 +44,7 @@ function Pagination() {
  * 
  * @param {NavigationOption} activeNavigationOption 
  * @param {HTMLElement} content 
- * @param {string} newEntityFormHref 
+ * @param {string} [newEntityFormHref]
  * @returns 
  */
 export function EntityManagmentBase(activeNavigationOption, content, newEntityFormHref) {
@@ -59,7 +59,7 @@ export function EntityManagmentBase(activeNavigationOption, content, newEntityFo
             { tag: 'div', className: 'topbar-wrapper' },
             [
               Searchbar(),
-              createElement({ tag: 'a', className: 'form-link', href: newEntityFormHref, textContent: 'Додати' })
+              newEntityFormHref ? createElement({ tag: 'a', className: 'form-link', href: newEntityFormHref, textContent: 'Додати' }) : undefined
             ]
           ),
           content,

@@ -1,24 +1,11 @@
 import { adminNavigationOptions, styles, statusOption } from '../config.js'
 import { Flowers } from './views/flowers.js'
 import { Orders } from './views/orders.js'
-import { Index } from './views/index.js'
-import { mountLayout } from '../layout.js'
+import { AdminIndex } from './views/index.js'
 import { FlowerForm } from './views/flowerForm.js'
 import { NewOrderFormLayout, OrderFormLayout } from './views/orderForm.js'
 import { Repository } from '../data/repositories.js'
-
-
-/**
- * 
- * @param {HTMLElement} layout 
- * @param {string} title 
- * @param {string[]} styles 
- */
-const mount = (layout, title, styles = []) => {
-  const defaultStyles = ['/css/base.css']
-
-  mountLayout(layout, title + ' | FloraShop Admin', defaultStyles.concat(styles))
-}
+import { mount } from '../utils.js'
 
 
 /**
@@ -44,11 +31,11 @@ export function getAdminRoutes(database) {
   /**
    * @type {Route[]}
    */
-  const routes = [
+  return [
     {
-      path: '/',
+      path: '/admin',
       handler: () => {
-        mount(Index(), 'Головна сторінка')
+        mount(AdminIndex(), )
       }
     },
     {
@@ -97,7 +84,4 @@ export function getAdminRoutes(database) {
       }
     },
   ]
-
-
-  return routes
 }

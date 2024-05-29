@@ -25,6 +25,21 @@ export const adminNavigationOptions = {
 }
 
 
+export const defaultStyles = ['/css/base.css']
+
+
+/**
+ * @type {NavigationOptions}
+ */
+export const mainNavigationOptions = {
+  flowers: {
+    url: '/flowers',
+    title: 'Квіти',
+    icon: '/img/flower.svg'
+  }
+}
+
+
 /**
  * @readonly
  * @enum {string}
@@ -35,6 +50,7 @@ export const styles = {
   forms: '/css/forms.css',
   tables: '/css/tables.css'
 }
+
 
 /**
  * @readonly

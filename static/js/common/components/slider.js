@@ -1,7 +1,12 @@
-import { createElement } from '../layout.js'
+import { createElement } from '../../layout.js'
 
 
-export function ImageSlider(images) {
+/**
+ * 
+ * @param {string[]} imagePaths 
+ * @returns 
+ */
+export function ImageSlider(imagePaths) {
   return createElement(
     { tag: 'div', className: 'slider' },
     [
@@ -9,14 +14,14 @@ export function ImageSlider(images) {
         { tag: 'div', className: 'main-image-wrapper' },
         [
           createElement({ tag: 'img', className: 'arrow', src: '/img/arrow.svg' }),
-          createElement({ tag: 'img', className: 'main-image', src: images[0].path }),
+          createElement({ tag: 'img', className: 'main-image', src: '/img/flower.jpg' }),
           createElement({ tag: 'img', className: 'arrow mirrored', src: '/img/arrow.svg' }),
         ]
       ),
       createElement(
         { tag: 'div', className: 'slider-images' },
         [
-          ...images.map(image => createElement({ tag: 'img', className: 'slider-image', src: image.path })),
+          ...imagePaths.map(image => createElement({ tag: 'img', className: 'slider-image', src: '/img/flower.jpg' })),
           createElement({ tag: 'div', className: 'slider-image slider-images-button', textContent: 'Додати зображення' })
         ]
       )
