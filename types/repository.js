@@ -41,6 +41,14 @@
 
 
 /**
+ * @typedef {Object} FlowerComment
+ * @param {string} author
+ * @param {string} text
+ * 
+ */
+
+
+/**
  * @typedef {Entity & {
  *  name: string
  * }} StatusOption

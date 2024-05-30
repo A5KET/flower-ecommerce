@@ -1,5 +1,4 @@
 import { mountLayout } from './layout.js'
-import { defaultStyles } from './config.js'
 
 
 /**
@@ -28,5 +27,5 @@ export function objectMap(callback, object) {
 
 
 export const mount = (layout, title, styles = []) => {
-  mountLayout(layout, title + ' | FloraShop Admin', defaultStyles.concat(styles))
+  mountLayout(layout, title, styles)
 }

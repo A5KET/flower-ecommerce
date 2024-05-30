@@ -78,8 +78,34 @@ export class Repository {
  * @extends Repository<Flower>
  */
 export class FlowerRepository extends Repository {
+  /**
+   * 
+   * @param {number} flowerId 
+   * @returns {Promise<FlowerComment[]>}
+   */
   async getFlowerComments(flowerId) {
-    return [] // #TODO 
+    return [
+      {
+        author: 'boba',
+        text: 'clasno'
+      },
+      {
+        author: 'boba',
+        text: 'clasno'
+      },
+      {
+        author: 'boba',
+        text: 'clasno'
+      },
+      {
+        author: 'boba',
+        text: 'clasno'
+      },
+      {
+        author: 'boba',
+        text: 'clasno'
+      },
+    ] // #TODO 
   }
 }
 

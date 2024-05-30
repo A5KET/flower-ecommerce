@@ -44,7 +44,8 @@ export const mainNavigationOptions = {
  * @readonly
  * @enum {string}
  */
-export const styles = {
+export const stylePaths = {
+  base: '/css/base.css',
   entityManagment: '/css/entityManagment.css',
   slider: '/css/slider.css',
   forms: '/css/forms.css',

@@ -1,4 +1,4 @@
-import { adminNavigationOptions, styles, statusOption } from '../config.js'
+import { adminNavigationOptions, stylePaths, statusOption } from '../config.js'
 import { Flowers } from './views/flowers.js'
 import { Orders } from './views/orders.js'
 import { AdminIndex } from './views/index.js'
@@ -6,6 +6,12 @@ import { FlowerForm } from './views/flowerForm.js'
 import { NewOrderFormLayout, OrderFormLayout } from './views/orderForm.js'
 import { Repository } from '../data/repositories.js'
 import { mount } from '../utils.js'
+
+
+
+const adminMount = (layout, title, styles=[]) => {
+  mount(layout, title + ' | FloraShop Admin', [stylePaths.base, ...styles])
+}
 
 
 /**
@@ -35,7 +41,7 @@ export function getAdminRoutes(database) {
     {
       path: '/admin',
       handler: () => {
-        mount(AdminIndex(), )
+        adminMount(AdminIndex(), )
       }
     },
     {
@@ -43,21 +49,21 @@ export function getAdminRoutes(database) {
       handler: () => {
         database.flowers.getAll().then(flowers => {
           flowers = flowers.slice(0, 12)
-          mount(Flowers(flowers), 'Квіти', [styles.entityManagment, '/css/flowers.css'])
+          adminMount(Flowers(flowers), 'Квіти', [stylePaths.entityManagment, '/css/flowers.css'])
         })
       }
     },
     {
       path: adminNavigationOptions.flowers.url + '/add',
       handler: () => {
-        mount(FlowerForm(), 'Додати квітку', [styles.forms, styles.slider, '/css/flowerForm.css'])
+        adminMount(FlowerForm(), 'Додати квітку', [stylePaths.forms, stylePaths.slider, '/css/flowerForm.css'])
       }
     },
     {
       path: adminNavigationOptions.flowers.url + '/:flowerId',
       handler: (params) => {
         database.flowers.get(params.flowerId).then(flower => {
-          mount(FlowerForm(flower), flower.name, [styles.forms, styles.slider, '/css/flowerForm.css'])
+          adminMount(FlowerForm(flower), flower.name, [stylePaths.forms, stylePaths.slider, '/css/flowerForm.css'])
         })
       }
     },
@@ -65,21 +71,21 @@ export function getAdminRoutes(database) {
       path: adminNavigationOptions.orders.url,
       handler: () => {
         database.orders.getAll().then(orders => {
-          mount(Orders(orders), 'Замовлення', [styles.entityManagment, styles.tables])
+          adminMount(Orders(orders), 'Замовлення', [stylePaths.entityManagment, stylePaths.tables])
         })
       },
     },
     {
       path: adminNavigationOptions.orders.url + '/add',
       handler: () => {
-        mount(NewOrderFormLayout(statusOption, saveNewOrder), 'Створити замовлення', [styles.forms, '/css/orderForm.css'])
+        adminMount(NewOrderFormLayout(statusOption, saveNewOrder), 'Створити замовлення', [stylePaths.forms, '/css/orderForm.css'])
       }
     },
     {
       path: adminNavigationOptions.orders.url + '/:orderId',
       handler: (params) => {
         database.orders.get(params.orderId).then(order => {
-          mount(OrderFormLayout(order, statusOption, updateOrder, removeOrder), 'Форма', [styles.forms, '/css/orderForm.css'])
+          adminMount(OrderFormLayout(order, statusOption, updateOrder, removeOrder), 'Форма', [stylePaths.forms, '/css/orderForm.css'])
         })
       }
     },

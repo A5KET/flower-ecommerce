@@ -56,7 +56,7 @@ function addEventListeners(props, node) {
  * @param {(LayoutElement|string)[]} children 
  * @returns {HTMLElement}
  */
-export function createElement(props, children = []) {
+export function createElement(props, children = []) { // #TODO make components as object and create them after
   const node = document.createElement(props.tag)
   const filteredProps = filterUndefinedProperties(props)
 
