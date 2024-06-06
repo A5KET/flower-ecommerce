@@ -10,7 +10,7 @@ export function getCommonRoutes() {
     {
       path: '/*',
       handler: () => {
-        mount(NoMatch(), '404')
+        mount(NoMatch(), '404', ['/css/base.css'])
       }
     }
   ]
