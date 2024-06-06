@@ -42,3 +42,8 @@ router.post('/orders', (req, res) => {
 
   req.database.orders.add(data).then(res.sendStatus(200))
 })
+
+
+router.put('/orders/:orderId', (req, res) => {
+  const data = req.body.data
+})

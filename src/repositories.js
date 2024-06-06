@@ -1,5 +1,5 @@
 import { Database } from './database.js'
-import { renameProperty } from './utils.js'
+import { generateToken } from './hash.js'
 
 
 export class Repository {
@@ -55,3 +55,47 @@ export class FlowerRepository extends Repository {
     return this.db.getFlowers()
   }
 }
+
+
+export class UserRepository extends Repository {
+  constructor(db, hashEncryptor) {
+    super(db)
+    this.hashEncryptor = hashEncryptor
+  }
+
+  async get(email, password) {
+    password = this.hashEncryptor(password)
+
+    return this.db.getUser(email, password)
+  }
+
+  async getByToken(token) {
+    return this.db.getUserByToken(token)
+  }
+
+  async add(user) {
+    user.password = this.hashEncryptor(user.password)
+    await this.db.addUser(user)
+
+    return this.db.getUser(user.email, user.password)
+  }
+}
+
+
+export class SessionRepository extends Repository {
+  constructor(db, tokenGenerator) {
+    super(db)
+    this.tokenGenerator = tokenGenerator
+  }
+
+  async get(token) {
+    return this.db.getSessionByToken(token)
+  }
+
+  async update(userId) {
+    const token = this.tokenGenerator()
+
+    return this.db.addSession(userId, token)
+  }
+}
+
