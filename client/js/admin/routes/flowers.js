@@ -4,7 +4,7 @@ import { Flowers, FlowerForm, NewFlowerForm } from '../views/flowers.js'
 
 
 
-
+/** @type {RoutesFactory} */
 export function getFlowersRoutes(database, mount) {
   function addFlower(flower) {
     database.flowers.add(flower).then(flower => redirect(getEntityURL(nav.flowers.url, flower.id)))

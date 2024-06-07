@@ -7,12 +7,7 @@ import { AdminBaseLayout } from './components/base.js'
 import { NoMatch } from '../common/noMatch.js'
 
 
-/**
- * 
- * @param {RoutesDatabase} database 
- * @param {MountFunction} mount 
- * @returns 
- */
+/** @type {RoutesFactory} */
 export function getAdminRoutes(database, mount) {
   return [
     ...getIndexRoutes(database, mount),

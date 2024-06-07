@@ -14,6 +14,7 @@ export const statusOption = {
 }
 
 
+/** @type {RoutesFactory} */
 export function getOrdersRoutes(database, mount) {
   /** @param {Order} order */
   function saveNewOrder(order) {

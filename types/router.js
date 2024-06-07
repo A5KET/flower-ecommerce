@@ -27,3 +27,11 @@
  * @param {RoutePath} pathToParse
  * @returns {Object}
  */
+
+
+/**
+ * @callback RoutesFactory
+ * @param {RoutesDatabase} database
+ * @param {MountFunction} mount
+ * @returns {Route[]}
+ */

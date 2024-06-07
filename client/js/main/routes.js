@@ -7,12 +7,7 @@ import { MainBaseLayout } from './components/base.js'
 import { NoMatch } from '../common/noMatch.js'
 
 
-/**
- * 
- * @param {RoutesDatabase} database
- * @param {MountFunction} mount
- * @returns 
- */
+/** @type {RoutesFactory} */
 export function getMainRoutes(database, mount) {
   return [
     {
