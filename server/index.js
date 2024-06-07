@@ -1,14 +1,6 @@
-import express from 'express'
 import pg from 'pg'
 
-import { Database } from './database.js'
-import {
-  flowersRouter,
-  ordersRouter,
-  reviewsRouter,
-  authRouter,
-  usersRouter
-} from './routes/index.js'
+import { Database } from './src/database.js'
 import { 
   FlowerRepository,
   OrderFlowersRepository,
@@ -16,10 +8,9 @@ import {
   UserRepository,
   SessionRepository,
   ReviewRepository
-} from './repositories.js'
-import { generateSHA256HexEncryption, generateToken } from './hash.js'
-
-const { Client } = pg
+} from './src/repositories.js'
+import { generateSHA256HexEncryption, generateToken } from './src/hash.js'
+import { getApp } from './src/app.js'
 
 
 function getRepositories(database) {
@@ -43,33 +34,15 @@ function getRepositories(database) {
 
 
 async function startApp() {
-  const app = express()
   const PORT = 3000
-
-  const client = new Client({
-    connectionString: process.env.PGSTRING
-  })
-
-  await client.connect()
+  const client = new pg.Client({ connectionString: process.env.PGSTRING })
   const db = new Database(client)
   const repositories = getRepositories(db)
+  const app = getApp(repositories)
 
+
+  await client.connect()
   await db.createTables()
-
-  app.use((req, res, next) => {
-    req.database = repositories
-    next()
-  })
-
-  app.use(express.json())
-  app.use('/',
-    authRouter,
-    flowersRouter,
-    ordersRouter,
-    reviewsRouter,
-    usersRouter
-  )
-
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
   })

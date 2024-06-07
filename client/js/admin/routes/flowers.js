@@ -6,6 +6,10 @@ import { redirect } from '../../path.js'
 
 
 export function getFlowersRoutes(database, mount) {
+  function addFlower(flower) {
+    database.flowers.add(flower).then(flower => redirect(getEntityURL(nav.flowers.url, flower.id)))
+  }
+
   /**
    * @type {Route[]}
    */
@@ -23,7 +27,7 @@ export function getFlowersRoutes(database, mount) {
       path: getNewEntityFormURL(nav.flowers.url),
       handler: () => {
         function onAdd(flower) {
-          database.flowers.add(flower).then((flower) => redirect(getEntityURL(nav.flowers.url, flower.id)))
+
         }
 
         mount(NewFlowerForm(), 'Додати квітку', [stylePaths.forms, stylePaths.slider, '/css/flowerForm.css'])
