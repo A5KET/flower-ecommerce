@@ -2,6 +2,7 @@ import { EntityManagmentBase } from '../../common/components/entityManagment.js'
 import { mainNavigationOptions } from '../../config.js'
 import { createElement } from '../../layout.js'
 import { getRelativePath } from '../../path.js'
+import { MainBaseLayout } from '../components/base.js'
 
 
 /**
@@ -22,12 +23,16 @@ function FlowerCard(flower, href) {
 
 
 export function MainFlowers(flowers) {
-  return EntityManagmentBase(
-    mainNavigationOptions.flowers,
-    createElement(
-      { tag: 'div', className: 'flower-cards' },
-      [
-        ...flowers.map(flower => FlowerCard(flower, getRelativePath(flower.id.toString())))
-      ])
+  return MainBaseLayout(
+    EntityManagmentBase(
+      createElement(
+        { tag: 'div', className: 'flower-cards' },
+        [
+          ...flowers.map(flower => FlowerCard(flower, getRelativePath(flower.id.toString())))
+        ])
+    ),
+    mainNavigationOptions.flowers
   )
+  
+
 }

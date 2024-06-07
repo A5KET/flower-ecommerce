@@ -11,3 +11,8 @@ export function getRelativePath(path, addTrailingSlash=true) {
 
   return absolutePath.href
 }
+
+
+export function redirect(path) {
+  window.location.pathname = path
+}

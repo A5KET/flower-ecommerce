@@ -1,3 +1,13 @@
+export function getNewEntityFormURL(base) {
+  return base + '/add'
+}
+
+
+export function getEntityURL(base, id) {
+  return `${base}/${id}`
+}
+
+
 /**
  * @type {NavigationOptions}
  */
@@ -13,12 +23,12 @@ export const adminNavigationOptions = {
     icon: '/img/order.svg'
   },
   reviews: {
-    url: '/#',
+    url: '/admin/reviews',
     title: 'Відгуки',
     icon: '/img/mail.svg'
   },
   users: {
-    url: '/#',
+    url: '/admin/users',
     title: 'Користувачі',
     icon: '/img/users.svg'
   }
@@ -50,16 +60,4 @@ export const stylePaths = {
   slider: '/css/slider.css',
   forms: '/css/forms.css',
   tables: '/css/tables.css'
-}
-
-
-/**
- * @readonly
- * @type {StatusOptions}
- */
-export const statusOption = {
-  new: 'Новий',
-  processing: 'Обробляється',
-  done: 'Виконано',
-  canceled: 'Скасовано'
 }

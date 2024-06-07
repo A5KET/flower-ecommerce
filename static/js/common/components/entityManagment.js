@@ -47,8 +47,8 @@ function Pagination() {
  * @param {string} [newEntityFormHref]
  * @returns 
  */
-export function EntityManagmentBase(activeNavigationOption, content, newEntityFormHref) {
-  const main = createElement(
+export function EntityManagmentBase(content, newEntityFormHref) {
+  return createElement(
     { tag: 'main' },
     [
       Filter(),
@@ -68,6 +68,4 @@ export function EntityManagmentBase(activeNavigationOption, content, newEntityFo
       ),
     ]
   )
-
-  return AdminBaseLayout(main, activeNavigationOption)
 }

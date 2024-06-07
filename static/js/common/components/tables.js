@@ -106,9 +106,8 @@ export function EntityTable(tableInfo, entities) {
 }
 
 
-export function EntityManagmentTable(activeNavigationOption, newEntityFormLink, tableInfo, entities) {
+export function EntityManagmentTable(newEntityFormLink, tableInfo, entities) {
   return EntityManagmentBase(
-    activeNavigationOption,
     EntityTable(tableInfo, entities),
     newEntityFormLink 
   )

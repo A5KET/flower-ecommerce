@@ -1,6 +1,7 @@
-import { adminNavigationOptions } from '../../config.js'
+import { adminNavigationOptions, getNewEntityFormURL } from '../../config.js'
 import { EntityManagmentTable, TableInfo, orderOption } from '../../common/components/tables.js'
 import { toLocaleStringFormat } from '../../formats.js'
+import { AdminBaseLayout } from '../components/base.js'
 
 
 /**
@@ -8,8 +9,7 @@ import { toLocaleStringFormat } from '../../formats.js'
  * @param {Order[]} orders 
  * @returns 
  */
-export function Orders(orders) {
-  console.log(orders)
+export function Orders(orders, newEntityFormURL) {
   const tableInfo = new TableInfo(
     {
       id: {
@@ -36,5 +36,8 @@ export function Orders(orders) {
     }
   )
 
-  return EntityManagmentTable(adminNavigationOptions.orders, adminNavigationOptions.orders.url + '/add', tableInfo, orders)
+  return AdminBaseLayout(
+    EntityManagmentTable(newEntityFormURL, tableInfo, orders),
+    adminNavigationOptions.orders
+  )
 }

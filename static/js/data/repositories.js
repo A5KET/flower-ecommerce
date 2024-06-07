@@ -1,4 +1,4 @@
-import { deleteRequest, getRequest, postRequest, putRequest } from './requests.js'
+import { APIClient } from './requests.js'
 
 
 /**
@@ -12,15 +12,17 @@ import { deleteRequest, getRequest, postRequest, putRequest } from './requests.j
  * @template {Entity} T
  */
 export class Repository {
+  entityEndpoint = ''
+
   /**
    * 
-   * @param {string} url 
+   * @param {APIClient} client 
    */
-  constructor(url,) {
-    this.url = url
+  constructor(client) {
+    this.client = client
   }
 
-  createEntity(entity) {
+  handleResultEntity(entity) {
     return entity
   }
 
@@ -29,9 +31,8 @@ export class Repository {
    * @returns {Promise<T[]>}
    */
   async getAll() {
-    return getRequest(this.url)
-      .then(response => response.data)
-      .then(data => data.map(value => this.createEntity(value))) 
+    return this.client.get(this.entityEndpoint)
+      .then(data => data.map(value => this.handleResultEntity(value))) 
   }
 
   /**
@@ -40,9 +41,8 @@ export class Repository {
    * @returns {Promise<T>}
    */
   async get(id) {
-    return getRequest(this.url + '/' + id)
-      .then(response => response.data)
-      .then(data => this.createEntity(data))
+    return this.client.get(this.entityEndpoint + '/' + id)
+      .then(data => this.handleResultEntity(data))
   }
 
   /**
@@ -51,7 +51,7 @@ export class Repository {
    * @returns 
    */
   async update(data) {
-    return putRequest(this.url + '/' + data.id, { data })
+    return this.client.put(this.entityEndpoint + '/' + data.id, data)
   }
 
   /**
@@ -60,7 +60,7 @@ export class Repository {
    * @returns 
    */
   async add(data) {
-    return postRequest(this.url, { data })
+    return this.client.post(this.entityEndpoint, data)
   }
 
   /**
@@ -69,7 +69,7 @@ export class Repository {
    * @returns 
    */
   async remove(id) {
-    return deleteRequest(this.url + '/' + id)
+    return this.client.delete(this.entityEndpoint + '/' + id)
   }
 }
 
@@ -78,35 +78,7 @@ export class Repository {
  * @extends Repository<Flower>
  */
 export class FlowerRepository extends Repository {
-  /**
-   * 
-   * @param {number} flowerId 
-   * @returns {Promise<FlowerComment[]>}
-   */
-  async getFlowerComments(flowerId) {
-    return [
-      {
-        author: 'boba',
-        text: 'clasno'
-      },
-      {
-        author: 'boba',
-        text: 'clasno'
-      },
-      {
-        author: 'boba',
-        text: 'clasno'
-      },
-      {
-        author: 'boba',
-        text: 'clasno'
-      },
-      {
-        author: 'boba',
-        text: 'clasno'
-      },
-    ] // #TODO 
-  }
+  entityEndpoint = 'flowers'
 }
 
 
@@ -114,11 +86,25 @@ export class FlowerRepository extends Repository {
  * @extends Repository<Order>
  */
 export class OrderRepository extends Repository {
-  createEntity(order) {
+  entityEndpoint = 'orders'
+
+  handleResultEntity(order) {
     const products = order.products
     order.totalPrice = products.reduce(((currentSum, product) => currentSum + (product.price * product.amount)), 0)
     order.timeCreated = new Date(order.timeCreated)
 
     return order
   }
+}
+
+
+export class ReviewRepository extends Repository {
+  entityEndpoint = 'reviews'
+
+  
+}
+
+
+export class UserRepository extends Repository {
+  entityEndpoint = 'users'
 }

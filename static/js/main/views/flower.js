@@ -1,42 +1,16 @@
 import { createElement } from '../../layout.js'
 import { MainBaseLayout } from '../components/base.js'
+import { Reviews } from '../components/review.js'
 
 
-function CommentForm(onSubmit) {
-  return createElement(
-    { tag: 'form', className: 'comment-form' },
-    [
-      createElement({ tag: 'input', name: 'author', placeholder: 'Ваше імʼя...' }),
-      createElement({ tag: 'textarea', name: 'text', placeholder: 'Відгук....' }),
-      createElement({ tag: 'button', type: 'submit', textContent: 'Написати відгук' })
-    ]
-  )
-}
-
-
-function Comment(comment) {
-  return createElement(
-    { tag: 'div', className: 'comment' },
-    [ 
-      createElement({ tag: 'span', className: 'author', textContent: comment.author }),
-      createElement({ tag: 'span', className: 'text', textContent: comment.text }),
-    ]
-  )
-}
-
-
-export function Comments(comments) {
-  return createElement(
-    { tag: 'div', className: 'comments' },
-    [
-      CommentForm(),
-      ...comments.map(comment => Comment(comment))
-    ]
-  )
-}
-
-
-export function Flower(flower, comments) {
+/**
+ * 
+ * @param {Flower} flower 
+ * @param {Review[]} reviews 
+ * @param {Function} onReviewSubmit 
+ * @returns 
+ */
+export function Flower(flower, reviews, onReviewSubmit) {
   return MainBaseLayout(
     createElement(
       { tag: 'main' },
@@ -54,7 +28,7 @@ export function Flower(flower, comments) {
             )
 
           ]),
-        Comments(comments)
+        Reviews(reviews, onReviewSubmit)
       ]
     )
   )

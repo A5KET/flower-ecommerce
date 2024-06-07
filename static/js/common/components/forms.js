@@ -31,6 +31,17 @@ export function TextInputField(field) {
 }
 
 
+export function NumberInputField(field) {
+  return createElement(
+    { tag: 'div', className: 'field' },
+    [
+      createElement({ tag: 'label', name: field.name, textContent: field.label }),
+      createElement({ tag: 'input', type: 'number', className: 'field-input', name: field.name, value: field?.value })
+    ]
+  )
+}
+
+
 /**
  * 
  * @param {FormField} field 

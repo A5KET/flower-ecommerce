@@ -1,0 +1,47 @@
+.reviews {
+  margin-top: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.review .author {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.review .text {
+  font-size: 20px;
+}
+
+.review-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.review-form input,
+.review-form textarea {
+  padding: 5px;
+}
+
+.review-form button {
+  height: 25px;
+  background: var(--color-second);
+  border-radius: 5px;;
+}
+
+.review-form textarea {
+  height: 100px;
+  resize: none;
+}

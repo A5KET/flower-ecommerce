@@ -1,7 +1,8 @@
 import { createElement } from '../../layout.js'
-import { adminNavigationOptions } from '../../config.js'
+import { adminNavigationOptions, getNewEntityFormURL } from '../../config.js'
 import { EntityManagmentBase } from '../../common/components/entityManagment.js'
 import { getRelativePath } from '../../path.js'
+import { AdminBaseLayout } from '../components/base.js'
 
 
 /**
@@ -27,12 +28,14 @@ function FlowerCard(flower, href) {
  * @returns 
  */
 export function Flowers(flowers) {
-  return EntityManagmentBase(
-    adminNavigationOptions.flowers,
-    createElement(
-      { tag: 'div', className: 'flower-cards' },
-      [
-        ...flowers.map(flower => FlowerCard(flower, getRelativePath(flower.id.toString())))
-      ])
+  return AdminBaseLayout(
+    EntityManagmentBase(
+      createElement(
+        { tag: 'div', className: 'flower-cards' },
+        [
+          ...flowers.map(flower => FlowerCard(flower, getRelativePath(flower.id.toString())))
+        ]),
+      getNewEntityFormURL(adminNavigationOptions.flowers.url)
+    ),
   )
 }

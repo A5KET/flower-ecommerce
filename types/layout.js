@@ -6,3 +6,14 @@
  */
 
 
+/**
+ * @callback MountFunction
+ * @param {HTMLElement} layout
+ * @param {string} title
+ * @param {string[] | undefined} styles
+ */
+
+
+/**
+ * @typedef {{ [key: string]: Repository<any> }} RoutesDatabase
+ */

@@ -8,7 +8,6 @@ export default [
   pluginJs.configs.recommended,
   {
     plugins: {
-
       '@stylistic/js': stylisticJs
     },
     rules: {

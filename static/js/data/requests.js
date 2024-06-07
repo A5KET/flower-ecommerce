@@ -1,8 +1,7 @@
 /**
- * @readonly
  * @enum {string}
  */
-export const Method = {
+export const HTTPMethod = {
   Get: 'GET',
   Post: 'POST',
   Delete: 'DELETE',
@@ -10,60 +9,78 @@ export const Method = {
 }
 
 
-/**
- * 
- * @param {string} url 
- * @returns 
- */
-export function getRequest(url) {
-  return fetch(url).then(response => response.json()).catch(error => console.log(error))
+export class ResponseError extends Error {
+
 }
 
 
 /**
  * 
  * @param {string} url 
- * @param {string} method 
- * @param {Object} body 
+ * @param {HTTPMethod} method 
+ * @param {Object} body
+ * @param {Object} headers 
  * @returns 
  */
-export async function JSONRequest(url, method, body) {
-  return fetch(url, {
+export async function JSONRequest(url, method, body, headers={}) {
+  let response = await fetch(url, {
     method: method,
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  }).then(response => response.json()).catch((error) => { console.log(error)})
-}
+    headers: Object.assign({ 'Content-Type': 'application/json' }, headers),
+    body: body ? JSON.stringify(body) : undefined
+  })
 
- 
-/**
- * 
- * @param {string} url 
- * @param {Object} body 
- * @returns 
- */
-export function postRequest(url, body) {
-  return JSONRequest(url, Method.Post, body)
-}
+  const text = await response.text()
 
+  if (!text) {
+    return undefined
+  }
 
-/**
- * 
- * @param {string} url 
- * @param {Object} body 
- * @returns 
- */
-export function deleteRequest(url, body) {
-  return JSONRequest(url, Method.Delete, body)
+  try {
+    response = JSON.parse(text)
+  } catch (error) {
+    console.log(url, method, text)
+    return undefined
+  }
+
+  if (response.error) {
+    throw new ResponseError(response.error)
+  }
+
+  return response.data
 }
 
 
-/**
- * 
- * @param {string} url 
- * @param {Object} body 
- * @returns 
- */
-export function putRequest(url, body) {
-  return JSONRequest(url, Method.Put, body)
+export class APIClient {
+  constructor(baseUrl='', defaultHeaders={}) {
+    this.baseUrl = baseUrl
+    this.defaultHeaders = defaultHeaders
+  }
+
+  request(url, method, body, headers) {
+    return JSONRequest(this.createUrl(url), method, body, this.getHeaders(headers))
+  }
+
+  get(url, headers={}) {
+    return this.request(url, HTTPMethod.Get, undefined, headers)
+  }
+
+  post(url, body={}, headers={}) {
+    return this.request(url, HTTPMethod.Post, body, headers)
+  }
+
+  put(url, body={}, headers={}) {
+    return this.request(url, HTTPMethod.Put, body, headers)
+  }
+
+  delete(url, body={}, headers={}) {
+    return this.request(url, HTTPMethod.Delete, body, headers)
+  }
+
+  getHeaders(headers) {
+    return Object.assign(this.defaultHeaders, headers)
+  }
+
+  createUrl(url) {
+    return this.baseUrl + url
+  }
 }

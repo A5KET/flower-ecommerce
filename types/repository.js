@@ -41,7 +41,7 @@
 
 
 /**
- * @typedef {Object} FlowerComment
+ * @typedef {Object} Review
  * @param {string} author
  * @param {string} text
  * 
