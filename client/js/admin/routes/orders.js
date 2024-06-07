@@ -1,7 +1,5 @@
 import { getNewEntityFormURL, adminNavigationOptions as nav, stylePaths } from '../../config.js'
-import { Orders } from '../views/orders.js'
-import { NewOrderFormLayout } from '../views/orderForm.js'
-import { OrderFormLayout } from '../views/orderForm.js'
+import { Orders, OrderFormLayout, NewOrderFormLayout } from '../views/orders.js'
 
 
 /**

@@ -4,17 +4,17 @@ import { FlowerRepository, OrderRepository } from './data/repositories.js'
 import { getAdminRoutes } from './admin/routes.js'
 import { getMainRoutes } from './main/routes.js'
 import { stylePaths } from './config.js'
-import { mount } from './utils.js'
+import { mountLayout } from './layout.js'
 
 
 /** @type {MountFunction} */
 function adminMount(layout, title, styles=[])  {
-  mount(layout, title + ' | FloraShop Admin', [stylePaths.base, ...styles])
+  mountLayout(layout, title + ' | FloraShop Admin', [stylePaths.base, ...styles])
 }
 
 /** @type {MountFunction} */
 const mainMount = (layout, title, styles=[]) => {
-  mount(layout, title + ' | FloraShop', [stylePaths.base, ...styles])
+  mountLayout(layout, title + ' | FloraShop', [stylePaths.base, ...styles])
 }
 
 const origin = window.location.origin

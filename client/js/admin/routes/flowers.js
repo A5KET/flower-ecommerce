@@ -1,7 +1,7 @@
 import { adminNavigationOptions as nav, stylePaths, getNewEntityFormURL, getEntityURL } from '../../config.js'
 import { redirect } from '../../path.js'
-import { Flowers } from '../views/flowers.js'
-import { FlowerForm, NewFlowerForm } from '../views/flowerForm.js'
+import { Flowers, FlowerForm, NewFlowerForm } from '../views/flowers.js'
+
 
 
 

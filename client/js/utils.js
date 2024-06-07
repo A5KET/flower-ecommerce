@@ -24,8 +24,3 @@ export function objectMap(callback, object) {
 
   return result
 }
-
-
-export const mount = (layout, title, styles = []) => {
-  mountLayout(layout, title, styles)
-}

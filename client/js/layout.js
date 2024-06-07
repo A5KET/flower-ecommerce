@@ -106,6 +106,7 @@ export function Style(href) {
  * @param {string[]} styleSources 
  */
 export function mountLayout(layout, title, styleSources = []) {
+  document.body.style.visibility = 'hidden'
   styleSources.forEach(style => document.head.appendChild(Style(style)))
   document.body.replaceWith(layout)
   document.title = title
