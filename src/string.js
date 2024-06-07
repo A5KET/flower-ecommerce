@@ -1,6 +1,3 @@
-import { renameProperty } from './utils.js'
-
-
 /**
  * 
  * @param {string} str 

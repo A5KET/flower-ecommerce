@@ -13,7 +13,36 @@ export class Repository {
 }
 
 
+export class OrderFlowersRepository extends Repository {
+  async getAll(orderId) {
+    return this.db.getOrderFlowers(orderId)
+  }
+
+  async update(orderId, flowers) {
+    await this.db.deleteAllOrderFlowers(orderId)
+
+    const results = flowers.map(flower => this.db.addOrderFlower(orderId, flower.id, flower.amount))
+
+    return Promise.all(results)
+  }
+}
+ 
+
 export class OrderRepository extends Repository {
+  constructor(db, orderFlowersRepository) {
+    super(db)
+    this.orderFlowers = orderFlowersRepository
+  }
+
+  async getOrderFlowers(orderId) {
+    return this.orderFlowers.getAll(orderId)
+  }
+
+  async addProductsToOrder(order) {
+    const products = await this.getOrderFlowers(order.id)
+    order.products = products
+  }
+
   async get(id) {
     const order = await this.db.getOrder(id)
 
@@ -21,27 +50,25 @@ export class OrderRepository extends Repository {
       return undefined
     }
 
-    order.products = await this.db.getOrderFlowers(order.id)
+    await this.addProductsToOrder(order)
 
     return order
   }
 
   async getAll() {
     const orders = await this.db.getOrders()
-    const ordersFlowers = orders.map(order => this.db.getOrderFlowers(order.id))
-
-    await Promise.all(ordersFlowers).then(async flowers => {
-      for (let i = 0; i < orders.length; i++) {
-        const order = orders[i]
-        order.products = flowers[i]
-      }
-    })
+    
+    await Promise.all(orders.map(this.addProductsToOrder))
 
     return orders
   }
 
   async add(order) {
     this.db.addOrder(order)
+  }
+
+  async delete(id) {
+
   }
 }
 
@@ -53,6 +80,33 @@ export class FlowerRepository extends Repository {
 
   async getAll() {
     return this.db.getFlowers()
+  }
+
+  async delete(id) {
+    return this.db.deleteFlower(id)
+  }
+
+  async update(flower) {
+    return this.db.updateFlower(flower)
+  }
+}
+
+
+export class ReviewRepository extends Repository {
+  async getAll() {
+    return this.db.getReviews()
+  }
+  
+  async get(id) {
+    return this.db.getReview(id)
+  }
+
+  async delete(id) {
+    return this.db.deleteReview(id)
+  }
+
+  async add(review) {
+    return this.db.addReview(review)
   }
 }
 

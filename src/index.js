@@ -2,12 +2,44 @@ import express from 'express'
 import pg from 'pg'
 
 import { Database } from './database.js'
-import { router as authRouter } from './routes/auth.js'
-import { router as mainRouter } from './routes/main.js'
-import { FlowerRepository, OrderRepository, SessionRepository, UserRepository } from './repositories.js'
-import { getSHA256HexEncryption, generateToken } from './hash.js'
+import {
+  flowersRouter,
+  ordersRouter,
+  reviewsRouter,
+  authRouter,
+  usersRouter
+} from './routes/index.js'
+import { 
+  FlowerRepository,
+  OrderFlowersRepository,
+  OrderRepository,
+  UserRepository,
+  SessionRepository,
+  ReviewRepository
+} from './repositories.js'
+import { generateSHA256HexEncryption, generateToken } from './hash.js'
 
 const { Client } = pg
+
+
+function getRepositories(database) {
+  const flowers = new FlowerRepository(database)
+  const orderFlowers = new OrderFlowersRepository(database)
+  const orders = new OrderRepository(database, orderFlowers)
+  const reviews = new ReviewRepository(database)
+  const users = new UserRepository(database, generateSHA256HexEncryption)
+  const sessions = new SessionRepository(database, generateToken)
+
+  const repositories = {
+    flowers,
+    orders,
+    reviews,
+    users,
+    sessions
+  }
+
+  return repositories
+}
 
 
 async function startApp() {
@@ -15,17 +47,14 @@ async function startApp() {
   const PORT = 3000
 
   const client = new Client({
-    connectionString: process.env.CONNECTION_STRING
+    connectionString: process.env.PGSTRING
   })
-  await client.connect()
 
-  const database = new Database(client)
-  const repositories = {
-    orders: new OrderRepository(database),
-    flowers: new FlowerRepository(database),
-    users: new UserRepository(database, getSHA256HexEncryption),
-    sessions: new SessionRepository(database, generateToken)
-  }
+  await client.connect()
+  const db = new Database(client)
+  const repositories = getRepositories(db)
+
+  await db.createTables()
 
   app.use((req, res, next) => {
     req.database = repositories
@@ -33,8 +62,13 @@ async function startApp() {
   })
 
   app.use(express.json())
-  app.use('/', authRouter)
-  app.use('/', mainRouter)
+  app.use('/',
+    authRouter,
+    flowersRouter,
+    ordersRouter,
+    reviewsRouter,
+    usersRouter
+  )
 
   app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`)
