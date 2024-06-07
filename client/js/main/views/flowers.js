@@ -1,4 +1,4 @@
-import { EntityManagmentBase } from '../../common/components/entityManagment.js'
+import { EntityManagmentBase } from '../../common/entityManagment.js'
 import { mainNavigationOptions } from '../../config.js'
 import { createElement } from '../../layout.js'
 import { getRelativePath } from '../../path.js'

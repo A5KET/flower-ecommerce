@@ -1,6 +1,6 @@
 import { createElement } from '../../layout.js'
 import { adminNavigationOptions, getNewEntityFormURL } from '../../config.js'
-import { EntityManagmentBase } from '../../common/components/entityManagment.js'
+import { EntityManagmentBase } from '../../common/entityManagment.js'
 import { getRelativePath } from '../../path.js'
 import { AdminBaseLayout } from '../components/base.js'
 

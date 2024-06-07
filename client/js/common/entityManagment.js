@@ -1,5 +1,4 @@
-import { AdminBaseLayout } from '../../admin/components/base.js'
-import { createElement } from '../../layout.js'
+import { createElement } from '../layout.js'
 
 
 export function Searchbar() {

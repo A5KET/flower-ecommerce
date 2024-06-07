@@ -1,5 +1,5 @@
 import { adminNavigationOptions, getNewEntityFormURL } from '../../config.js'
-import { EntityManagmentTable, TableInfo, orderOption } from '../../common/components/tables.js'
+import { EntityManagmentTable, TableInfo, orderOption } from '../../common/tables.js'
 import { toLocaleStringFormat } from '../../formats.js'
 import { AdminBaseLayout } from '../components/base.js'
 

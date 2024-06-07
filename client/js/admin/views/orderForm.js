@@ -1,6 +1,6 @@
 import { AdminBaseLayout } from '../components/base.js'
-import { Fieldset, FormButtons, TextInputField, DateTimeField, SelectField, getFormData } from '../../common/components/forms.js'
-import { ProductList } from '../../common/components/products.js'
+import { Fieldset, FormButtons, TextInputField, DateTimeField, SelectField, getFormData } from '../../common/forms.js'
+import { ProductList } from '../../common/products.js'
 import { createElement } from '../../layout.js'
 
 

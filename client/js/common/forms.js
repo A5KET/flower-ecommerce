@@ -1,6 +1,6 @@
-import { createElement } from '../../layout.js'
-import { convertToDateTimeLocalString } from '../../formats.js'
-import { objectMap } from '../../utils.js'
+import { createElement } from '../layout.js'
+import { convertToDateTimeLocalString } from '../formats.js'
+import { objectMap } from '../utils.js'
 
 
 /**

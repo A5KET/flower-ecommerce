@@ -61,6 +61,12 @@ export function Footer() {
 }
 
 
+/**
+ * 
+ * @param {HTMLElement} main 
+ * @param {NavigationOption | undefined} activeNavigationOption 
+ * @returns 
+ */
 export function MainBaseLayout(main, activeNavigationOption) {
   return createElement(
     { tag: 'body' },

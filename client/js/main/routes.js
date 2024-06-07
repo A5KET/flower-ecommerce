@@ -3,6 +3,8 @@ import { mainNavigationOptions } from '../config.js'
 import { MainFlowers } from './views/flowers.js'
 import { Flower } from './views/flower.js'
 import { stylePaths } from '../config.js'
+import { MainBaseLayout } from './components/base.js'
+import { NoMatch } from '../common/noMatch.js'
 
 
 /**
@@ -41,5 +43,11 @@ export function getMainRoutes(database, mount) {
         })
       }
     },
+    {
+      path: '/*',
+      handler: () => {
+        mount(MainBaseLayout(NoMatch()))
+      }
+    }
   ]
 }

@@ -1,8 +1,8 @@
-import { createElement } from '../../layout.js'
-import { formatObjectValues } from '../../formats.js'
+import { createElement } from '../layout.js'
+import { formatObjectValues } from '../formats.js'
+import { addRedirectOnClick } from '../listeners.js'
+import { getRelativePath } from '../path.js'
 import { EntityManagmentBase } from './entityManagment.js'
-import { addRedirectOnClick } from '../../listeners.js'
-import { getRelativePath } from '../../path.js'
 
 
 export const orderOption = {
