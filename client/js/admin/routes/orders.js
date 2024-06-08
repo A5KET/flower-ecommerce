@@ -1,4 +1,4 @@
-import { getNewEntityFormURL, adminNavigationOptions as nav, stylePaths } from '../../config.js'
+import { getNewEntityFormURL, stylePaths } from '../../config.js'
 import { Orders, OrderFormLayout, NewOrderFormLayout } from '../views/orders.js'
 
 
@@ -15,7 +15,7 @@ export const statusOption = {
 
 
 /** @type {RoutesFactory} */
-export function getOrdersRoutes(database, mount) {
+export function getOrdersRoutes(database, mount, url) {
   /** @param {Order} order */
   function saveNewOrder(order) {
     database.orders.add(order)
@@ -33,23 +33,23 @@ export function getOrdersRoutes(database, mount) {
 
   return [
     {
-      path: nav.orders.url,
+      path: url,
       handler: () => {
         database.orders.getAll().then(orders => {
-          mount(Orders(orders, getNewEntityFormURL(nav.orders.url)), 'Замовлення', [stylePaths.entityManagment, stylePaths.tables])
+          mount(Orders(orders, getNewEntityFormURL(url)), 'Замовлення', [stylePaths.entityManagment, stylePaths.tables])
         })
       },
     },
     {
-      path: nav.orders.url + '/add',
+      path: getNewEntityFormURL(url),
       handler: () => {
         mount(NewOrderFormLayout(statusOption, saveNewOrder), 'Створити замовлення', [stylePaths.forms, '/css/orderForm.css'])
       }
     },
     {
-      path: nav.orders.url + '/:orderId',
+      path: url + '/:id',
       handler: (params) => {
-        database.orders.get(params.orderId).then(order => {
+        database.orders.get(params.id).then(order => {
           mount(OrderFormLayout(order, statusOption, updateOrder, removeOrder), 'Форма', [stylePaths.forms, '/css/orderForm.css'])
         })
       }
