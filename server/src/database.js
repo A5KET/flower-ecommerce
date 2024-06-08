@@ -15,12 +15,6 @@ export class Database {
       password VARCHAR(256) NOT NULL
     );
     
-    CREATE TABLE IF NOT EXISTS "review" (
-      id SERIAL PRIMARY KEY,
-      user_id SERIAL REFERENCES "user" (id) NOT NULL,
-      text VARCHAR(8192)
-    );
-    
     CREATE TABLE IF NOT EXISTS "session" (
       id SERIAL PRIMARY KEY,
       user_id INTEGER NOT NULL UNIQUE REFERENCES "user" (id) ON DELETE CASCADE,
@@ -33,6 +27,14 @@ export class Database {
       name VARCHAR(256) UNIQUE NOT NULL,
       color VARCHAR(256) NOT NULL,
       price INT NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS "review" (
+      id SERIAL PRIMARY KEY,
+      flower_id SERIAL NOT NULL REFERENCES "flower" (id) ON DELETE CASCADE,
+      user_id SERIAL NOT NULL REFERENCES "user" (id) ON DELETE CASCADE ,
+      text VARCHAR(8192),
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
     
     CREATE TABLE IF NOT EXISTS "order" (
@@ -94,10 +96,7 @@ export class Database {
    * @returns 
    */
   selectAll(table) {
-    return this.executeMany(`
-      SELECT *
-      FROM "${table}"
-    `)
+    return this.executeMany(`SELECT * FROM "${table}"`)
   }
 
   deleteOne(table, id) {
@@ -119,6 +118,7 @@ export class Database {
     return this.executeOne(`
       INSERT INTO "flower" (name, color, price)
       VALUES ($1, $2, $3)
+      RETURNING *
     `, [flower.name, flower.color, flower.price])
   }
 
@@ -167,7 +167,7 @@ export class Database {
   
   addOrderFlower(orderId, flowerId, amount) {
     return this.executeOne(`
-      INSERT INTO "order_flower" (order_id, flower_id, amount)
+      INSERT INTO "order_flowers" (order_id, flower_id, amount)
       VALUES ($1, $2, $3)
     `, [orderId, flowerId, amount])
   }
@@ -181,17 +181,17 @@ export class Database {
 
   deleteAllOrderFlowers(orderId) {
     return this.executeMany(`
-      DELETE FROM "order_flower"
+      DELETE FROM "order_flowers"
       WHERE order_id = $1
     `, [orderId])
   }
 
   getOrderFlowers(orderId) {
     return this.executeMany(`
-      SELECT flower.*, orderflowers.amount as amount
-      FROM orderflowers
-      JOIN flower ON orderflowers.flower_id = flower.id
-      WHERE orderflowers.order_id = $1
+      SELECT flower.*, order_flowers.amount as amount
+      FROM order_flowers
+      JOIN flower ON order_flowers.flower_id = flower.id
+      WHERE order_flowers.order_id = $1
     `, [orderId])
   }
 
@@ -219,6 +219,29 @@ export class Database {
       VALUES ($1, $2, $3)
       RETURNING (id, username, email)
     `, [user.username, user.email, user.password])
+  }
+
+  removeUser(userId) {
+    return this.executeOne(`
+      DELETE FROM "user"
+      WHERE id = $1
+    `, [userId])
+  }
+
+  getUser(id) {
+    return this.selectOne('user', id)
+  }
+
+  getUsers() {
+    return this.selectAll('user')
+  }
+
+  updateUserPassword(userId, password) {
+    return this.executeOne(`
+      UPDATE "user"
+      SET password = $1
+      WHERE id = $2
+    `, [password, userId])
   }
 
   // sessions

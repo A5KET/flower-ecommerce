@@ -120,7 +120,7 @@ export function Orders(orders, newEntityFormURL) {
       customer: {
         heading: 'Замовник',
       },
-      created: {
+      createdAt: {
         heading: 'Дата створення',
         format: toLocaleStringFormat('en-GB')
       },

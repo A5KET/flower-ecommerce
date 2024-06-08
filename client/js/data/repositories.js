@@ -107,4 +107,8 @@ export class ReviewRepository extends Repository {
 
 export class UserRepository extends Repository {
   entityEndpoint = 'users'
+
+  updatePassword(userId, password) {
+    return this.client.put(`${this.entityEndpoint}/${userId}/password`, { password })
+  }
 }

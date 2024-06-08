@@ -129,12 +129,12 @@ export function SelectField(field) {
  * @param {Function} onRemove 
  * @returns 
  */
-export function FormButtons(onRemove) {
+export function FormButtons(onRemove, saveButton=true) {
   return createElement(
     { tag: 'div', className: 'form-buttons' },
     [
-      createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти' }),
-      onRemove ? createElement({ tag: 'button', type: 'reset', className: 'delete-button', textContent: 'Видалити', onClick: onRemove }) : ''
+      saveButton ? createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти' }) : undefined,
+      onRemove ? createElement({ tag: 'button', type: 'reset', className: 'delete-button', textContent: 'Видалити', onClick: onRemove }) : undefined
     ]
   )
 }

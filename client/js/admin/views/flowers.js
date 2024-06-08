@@ -20,10 +20,6 @@ export function FlowerForm(flower, onSave, onDelete) {
     onSave(savedFlower)
   }
 
-  function onDeleteButtonClick() {
-    onDelete(flower)
-  }
-
   const sliderImages = [
     {
       'path': '/img/flower.jpg'
@@ -73,7 +69,7 @@ export function FlowerForm(flower, onSave, onDelete) {
           [
             ImageSlider(sliderImages),
             Fieldset(fields),
-            FormButtons(onDelete ? onDeleteButtonClick : undefined)
+            FormButtons(onDelete ? () => onDelete(flower) : undefined)
           ],
         )
       ]
@@ -108,7 +104,7 @@ function FlowerCard(flower, href) {
  * @param {Flower[]} flowers 
  * @returns 
  */
-export function Flowers(flowers) {
+export function Flowers(flowers, newEntityFormURL) {
   return AdminBaseLayout(
     EntityManagmentBase(
       createElement(
@@ -116,7 +112,7 @@ export function Flowers(flowers) {
         [
           ...flowers.map(flower => FlowerCard(flower, getRelativePath(flower.id.toString())))
         ]),
-      getNewEntityFormURL(adminNavigationOptions.flowers.url)
+      newEntityFormURL
     ),
   )
 }

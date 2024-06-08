@@ -29,6 +29,11 @@ export class OrderFlowersRepository extends Repository {
  
 
 export class OrderRepository extends Repository {
+  /**
+   * 
+   * @param {Database} db 
+   * @param {OrderFlowersRepository} orderFlowersRepository 
+   */
   constructor(db, orderFlowersRepository) {
     super(db)
     this.orderFlowers = orderFlowersRepository
@@ -38,8 +43,8 @@ export class OrderRepository extends Repository {
     return this.orderFlowers.getAll(orderId)
   }
 
-  async addProductsToOrder(order) {
-    const products = await this.getOrderFlowers(order.id)
+  async handleResult(order) {
+    const products = await this.orderFlowers.getAll(order.id)
     order.products = products
   }
 
@@ -50,7 +55,7 @@ export class OrderRepository extends Repository {
       return undefined
     }
 
-    await this.addProductsToOrder(order)
+    await this.handleResult(order)
 
     return order
   }
@@ -58,7 +63,7 @@ export class OrderRepository extends Repository {
   async getAll() {
     const orders = await this.db.getOrders()
     
-    await Promise.all(orders.map(this.addProductsToOrder))
+    await Promise.all(orders.map((order) => this.handleResult(order)))
 
     return orders
   }
@@ -68,7 +73,7 @@ export class OrderRepository extends Repository {
   }
 
   async delete(id) {
-
+    return this.db.deleteOrder(id)
   }
 }
 
@@ -97,12 +102,36 @@ export class FlowerRepository extends Repository {
 
 
 export class ReviewRepository extends Repository {
+  /**
+   * 
+   * @param {Database} db 
+   * @param {UserRepository} userRepository 
+   */
+  constructor(db, userRepository) { 
+    super(db)
+    this.users = userRepository
+  }
+
+  async handleResult(review) {
+    if (review) {
+      const author = await this.users.get(review.userId)
+      review.author = author
+      delete review.userId
+    }
+
+    return review
+  }
+
   async getAll() {
-    return this.db.getReviews()
+    const reviews = await this.db.getReviews()
+
+    return await Promise.all(reviews.map(review => this.handleResult(review)))
   }
   
   async get(id) {
-    return this.db.getReview(id)
+    const review = await this.db.getReview(id)
+
+    return await this.handleResult(review)
   }
 
   async delete(id) {
@@ -116,15 +145,40 @@ export class ReviewRepository extends Repository {
 
 
 export class UserRepository extends Repository {
+  /**
+   * 
+   * @param {Database} db 
+   * @param {Function} hashEncryptor 
+   */
   constructor(db, hashEncryptor) {
     super(db)
     this.hashEncryptor = hashEncryptor
   }
 
-  async get(email, password) {
+  handleResult(user) {
+    if (user) {
+      delete user.password
+    }
+
+    return user
+  }
+
+  async updatePassword(userId, password) {
+    return this.db.updateUserPassword(userId, this.hashEncryptor(password))
+  }
+
+  async getAll() {
+    return this.db.getUsers().then(result => result.map(this.handleResult))
+  }
+
+  async get(id) {
+    return this.db.getUser(id).then(result => this.handleResult(result))
+  }
+
+  async getByEmailAndPassword(email, password) {
     password = this.hashEncryptor(password)
 
-    return this.db.getUser(email, password)
+    return this.db.getUser(email, password).then(result => this.handleResult(result))
   }
 
   async getByToken(token) {
@@ -137,10 +191,19 @@ export class UserRepository extends Repository {
 
     return this.db.getUser(user.email, user.password)
   }
+
+  async delete(id) {
+    return this.db.removeUser(id)
+  }
 }
 
 
 export class SessionRepository extends Repository {
+  /**
+   * 
+   * @param {Database} db 
+   * @param {Function} tokenGenerator 
+   */
   constructor(db, tokenGenerator) {
     super(db)
     this.tokenGenerator = tokenGenerator

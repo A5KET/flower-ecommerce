@@ -14,12 +14,12 @@ import { getApp } from './src/app.js'
 
 
 function getRepositories(database) {
+  const users = new UserRepository(database, generateSHA256HexEncryption)
+  const sessions = new SessionRepository(database, generateToken)
   const flowers = new FlowerRepository(database)
   const orderFlowers = new OrderFlowersRepository(database)
   const orders = new OrderRepository(database, orderFlowers)
-  const reviews = new ReviewRepository(database)
-  const users = new UserRepository(database, generateSHA256HexEncryption)
-  const sessions = new SessionRepository(database, generateToken)
+  const reviews = new ReviewRepository(database, users)
 
   const repositories = {
     flowers,

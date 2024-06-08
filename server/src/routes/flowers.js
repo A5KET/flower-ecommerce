@@ -32,7 +32,6 @@ router.get('/flowers/:id', async (req, res) => {
 router.put('/flowers/:id', (req, res) => {
   const flower = req.body
   flower.id = req.params.id
-  console.log(flower)
 
   req.database.flowers.update(flower).then(() => res.end())
 })

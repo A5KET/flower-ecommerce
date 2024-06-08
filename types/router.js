@@ -33,5 +33,6 @@
  * @callback RoutesFactory
  * @param {RoutesDatabase} database
  * @param {MountFunction} mount
+ * @param {string | undefined} url
  * @returns {Route[]}
  */

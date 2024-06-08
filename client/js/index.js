@@ -2,7 +2,7 @@ import { redirect } from './path.js'
 import { hasTrailingSlash, removeTrailingSlash } from './utils.js'
 import { Router } from './router.js'
 import { APIClient } from './data/requests.js'
-import { FlowerRepository, OrderRepository } from './data/repositories.js'
+import { FlowerRepository, OrderRepository, ReviewRepository, UserRepository } from './data/repositories.js'
 import { getAdminRoutes } from './admin/routes.js'
 import { getMainRoutes } from './main/routes.js'
 import { stylePaths } from './config.js'
@@ -30,10 +30,14 @@ const origin = window.location.origin
 const apiClient = new APIClient(origin + '/api/')
 const flowerRepository = new FlowerRepository(apiClient)
 const orderRepository = new OrderRepository(apiClient)
+const reviewRepository = new ReviewRepository(apiClient)
+const userRepository = new UserRepository(apiClient)
 
 const database = {
   flowers: flowerRepository,
-  orders: orderRepository
+  orders: orderRepository,
+  reviews: reviewRepository,
+  users: userRepository
 }
 
 const router = new Router()
