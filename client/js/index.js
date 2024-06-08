@@ -1,3 +1,5 @@
+import { redirect } from './path.js'
+import { hasTrailingSlash, removeTrailingSlash } from './utils.js'
 import { Router } from './router.js'
 import { APIClient } from './data/requests.js'
 import { FlowerRepository, OrderRepository } from './data/repositories.js'
@@ -5,6 +7,13 @@ import { getAdminRoutes } from './admin/routes.js'
 import { getMainRoutes } from './main/routes.js'
 import { stylePaths } from './config.js'
 import { mountLayout } from './layout.js'
+
+
+
+const path = window.location.pathname
+if (hasTrailingSlash(path)) {
+  redirect(removeTrailingSlash(path))
+}
 
 
 /** @type {MountFunction} */
@@ -32,4 +41,4 @@ const router = new Router()
 router.use('', getAdminRoutes(database, adminMount))
 router.use('', getMainRoutes(database, mainMount))
 
-router.handlePath(window.location.pathname)
+router.handlePath(path)
