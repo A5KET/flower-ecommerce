@@ -16,3 +16,8 @@ export function getRelativePath(path, addTrailingSlash=true) {
 export function redirect(path) {
   window.location.pathname = path
 }
+
+
+export function reload() {
+  window.location.reload()
+}

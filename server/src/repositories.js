@@ -82,6 +82,10 @@ export class FlowerRepository extends Repository {
     return this.db.getFlowers()
   }
 
+  async add(flower) {
+    return this.db.addFlower(flower)
+  }
+
   async delete(id) {
     return this.db.deleteFlower(id)
   }

@@ -1,6 +1,3 @@
-import { mountLayout } from './layout.js'
-
-
 /**
  * @template V
  * @callback ObjectMapCallback
@@ -23,4 +20,24 @@ export function objectMap(callback, object) {
   }
 
   return result
+}
+
+
+export function hasTrailingSlash(string) {
+  return string.length > 1 && string.slice(-1) == '/'
+}
+
+
+export function removeTrailingSlash(string) {
+  return string.replace(/\/$/, '')
+}
+
+
+/**
+ * @type {RouteChecker} 
+ * */
+function defaultRouteChecker(routePath, pathToCheck) {
+  const regex = new RegExp('^' + routePath.replace(/\/:([^/]+)/g, '/([^/]+)').replace(/\/\*/g, '/.*') + '$')
+
+  return regex.test(pathToCheck)
 }

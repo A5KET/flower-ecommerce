@@ -15,6 +15,31 @@ export function getFormData(form) {
 }
 
 
+export function getFormDataOnSubmit(callback) {
+  return function(event) {
+    event.preventDefault()
+    const form = event.target
+    if (form.checkValidity()) {
+      const data = getFormData(event.target)
+      callback(data)
+    }
+  }
+}
+
+
+export function Form(callback, children) {
+
+  const form = createElement(
+    { tag: 'form' },
+    children
+  )
+
+  form.addEventListener('submit', getFormDataOnSubmit(callback))
+
+  return form
+}
+
+
 /**
  * 
  * @param {TextFormField} field 
@@ -104,12 +129,12 @@ export function SelectField(field) {
  * @param {Function} onRemove 
  * @returns 
  */
-export function FormButtons(onSave, onRemove) {
+export function FormButtons(onRemove) {
   return createElement(
     { tag: 'div', className: 'form-buttons' },
     [
-      createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти', onClick: onSave }),
-      onRemove ? createElement({ tag: 'button', className: 'delete-button', textContent: 'Видалити', onClick: onRemove }) : ''
+      createElement({ tag: 'button', className: 'save-button', type: 'submit', textContent: 'Зберегти' }),
+      onRemove ? createElement({ tag: 'button', type: 'reset', className: 'delete-button', textContent: 'Видалити', onClick: onRemove }) : ''
     ]
   )
 }

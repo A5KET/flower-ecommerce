@@ -3,18 +3,27 @@ import { adminNavigationOptions, getNewEntityFormURL } from '../../config.js'
 import { EntityManagmentBase } from '../../common/entityManagment.js'
 import { getRelativePath } from '../../path.js'
 import { AdminBaseLayout } from '../components/base.js'
-import { FormButtons, TextInputField, NumberInputField, Fieldset } from '../../common/forms.js'
+import { FormButtons, TextInputField, NumberInputField, Fieldset, getFormDataOnSubmit, Form } from '../../common/forms.js'
 import { ImageSlider } from '../../common/slider.js'
-
-
 
 
 /**
  * 
- * @param {Flower} flower 
+ * @param {Flower | Object} flower 
+ * @param {Function} onSave
+ * @param {Function} onDelete
  * @returns 
  */
-function FlowerFormMain(flower) {
+export function FlowerForm(flower, onSave, onDelete) {
+  function onFormSave(savedFlower) {
+    savedFlower.id = flower.id
+    onSave(savedFlower)
+  }
+
+  function onDeleteButtonClick() {
+    onDelete(flower)
+  }
+
   const sliderImages = [
     {
       'path': '/img/flower.jpg'
@@ -28,50 +37,47 @@ function FlowerFormMain(flower) {
   ]
 
   const fields = [
-    TextInputField({
-      id: 'name',
-      label: 'Назва',
-      value: flower.name
-    }),
     TextInputField(
       {
-        id: 'color',
+        name: 'name',
+        label: 'Назва',
+        value: flower.name,
+        required: true
+      }
+    ),
+    TextInputField(
+      {
+        name: 'color',
         label: 'Колір',
-        value: flower.color
+        value: flower.color,
+        required: true
       },
     ),
     NumberInputField(
       {
-        id: 'price',
+        name: 'price',
         label: 'Ціна',
-        value: 200
+        value: flower.price,
+        min: 0,
+        required: true
       }
     )
   ]
 
-  return createElement(
-    { tag: 'main' },
-    [
-      createElement(
-        { tag: 'form' },
-        [
-          ImageSlider(sliderImages),
-          Fieldset(fields),
-          FormButtons()
-        ]
-      )
-    ]
-  )
-}
-
-
-/**
- * 
- * @param {Flower | Object} flower 
- * @returns 
- */
-export function FlowerForm(flower, onSave, onDelete) {
-  return AdminBaseLayout(FlowerFormMain(flower))
+  return AdminBaseLayout(
+    createElement(
+      { tag: 'main' },
+      [
+        Form(
+          onFormSave,
+          [
+            ImageSlider(sliderImages),
+            Fieldset(fields),
+            FormButtons(onDelete ? onDeleteButtonClick : undefined)
+          ],
+        )
+      ]
+    ))
 }
 
 
@@ -91,7 +97,7 @@ function FlowerCard(flower, href) {
     [
       createElement({ tag: 'img', className: 'flower-card-thumbnail', src: '/img/flower.jpg' }),
       createElement({ tag: 'span', className: 'flower-card-name', textContent: flower.name }),
-      createElement({ tag: 'span', className: 'flower-card-price', textContent: `${flower.price}гр/шт` })
+      createElement({ tag: 'span', className: 'flower-card-price', textContent: `${flower.price} гр/шт` })
     ]
   )
 }

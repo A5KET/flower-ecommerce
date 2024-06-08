@@ -9,8 +9,15 @@ router.get('/flowers', (req, res) => {
 })
 
 
-router.get('/flowers/:flowerId', async (req, res) => {
-  const flowerId = req.params.flowerId
+router.post('/flowers', (req, res) => {
+  const flower = req.body
+
+  req.database.flowers.add(flower).then(data => res.status(201).json({ data }))
+})
+
+
+router.get('/flowers/:id', async (req, res) => {
+  const flowerId = req.params.id
   const flower = await req.database.flowers.get(flowerId)
 
   if (!flower) {
@@ -22,16 +29,17 @@ router.get('/flowers/:flowerId', async (req, res) => {
 })
 
 
-router.post('/flowers', (req, res) => {
+router.put('/flowers/:id', (req, res) => {
   const flower = req.body
+  flower.id = req.params.id
+  console.log(flower)
 
-  req.database.flowers.add(flower).then(() => res.end())
+  req.database.flowers.update(flower).then(() => res.end())
 })
 
 
-router.put('/flowers/:flowerId', (req, res) => {
-  const flower = req.body
-  flower.id = req.params.flowerId
+router.delete('/flowers/:id', (req, res) => {
+  const flowerId = req.params.id
 
-  req.database.flowers.update(flower).then(() => res.end())
+  req.database.flowers.delete(flowerId).then(() => res.end())
 })
