@@ -1,34 +1,23 @@
-import { getNewEntityFormURL, stylePaths } from '../../config.js'
-import { Orders, OrderFormLayout, NewOrderFormLayout } from '../views/orders.js'
-
-
-/**
- * @readonly
- * @type {StatusOptions}
- */
-export const statusOption = {
-  new: 'Новий',
-  processing: 'Обробляється',
-  done: 'Виконано',
-  canceled: 'Скасовано'
-}
+import { getEntityURL, getNewEntityFormURL, stylePaths } from '../../config.js'
+import { redirect, reload } from '../../path.js'
+import { Orders, OrderForm, NewOrderForm } from '../views/orders.js'
 
 
 /** @type {RoutesFactory} */
 export function getOrdersRoutes(database, mount, url) {
   /** @param {Order} order */
   function saveNewOrder(order) {
-    database.orders.add(order)
+    database.orders.add(order).then(result => redirect(getEntityURL(url, result.id)))
   }
 
   /** @param {Order} order */
   function updateOrder(order) {
-    database.orders.update(order)
+    database.orders.update(order).then(() => reload())
   }
 
   /** @param {Order} order */
   function removeOrder(order) {
-    database.orders.remove(order.id)
+    database.orders.remove(order.id).then(() => redirect(url))
   }
 
   return [
@@ -42,16 +31,19 @@ export function getOrdersRoutes(database, mount, url) {
     },
     {
       path: getNewEntityFormURL(url),
-      handler: () => {
-        mount(NewOrderFormLayout(statusOption, saveNewOrder), 'Створити замовлення', [stylePaths.forms, '/css/orderForm.css'])
+      handler: async () => {
+        const possibleProducts = await database.flowers.getAll()
+        mount(NewOrderForm(possibleProducts, saveNewOrder), 'Створити замовлення', [stylePaths.forms, '/css/orderForm.css'])
       }
     },
     {
       path: url + '/:id',
-      handler: (params) => {
-        database.orders.get(params.id).then(order => {
-          mount(OrderFormLayout(order, statusOption, updateOrder, removeOrder), 'Форма', [stylePaths.forms, '/css/orderForm.css'])
-        })
+      handler: async (params) => {
+        const order = await database.orders.get(params.id)
+        const possibleProducts = await database.flowers.getAll()
+
+        mount(OrderForm(order, possibleProducts, updateOrder, removeOrder), 'Форма', [stylePaths.forms, '/css/orderForm.css'])
+
       }
     },
   ]

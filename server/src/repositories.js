@@ -21,9 +21,9 @@ export class OrderFlowersRepository extends Repository {
   async update(orderId, flowers) {
     await this.db.deleteAllOrderFlowers(orderId)
 
-    const results = flowers.map(flower => this.db.addOrderFlower(orderId, flower.id, flower.amount))
+    const results = await Promise.all(flowers.map(flower => this.db.addOrderFlower(orderId, flower.id, flower.amount)))
 
-    return Promise.all(results)
+    return results
   }
 }
  
@@ -48,6 +48,10 @@ export class OrderRepository extends Repository {
     order.products = products
   }
 
+  async updateProducts(order) {
+    return await this.orderFlowers.update(order.id, order.products)
+  }
+
   async get(id) {
     const order = await this.db.getOrder(id)
 
@@ -69,7 +73,18 @@ export class OrderRepository extends Repository {
   }
 
   async add(order) {
-    this.db.addOrder(order)
+    const result = await this.db.addOrder(order)
+
+    order.id = result.id
+    this.updateProducts(order)
+
+    return result
+  }
+
+  async update(order) {
+    await this.updateProducts(order)
+
+    return this.db.updateOrder(order)
   }
 
   async delete(id) {

@@ -1,5 +1,5 @@
-import { createElement } from '../layout.js'
-import { getFormData } from './forms.js'
+import { createElement } from '../../layout.js'
+import { NumberInputField, getFormDataOnSubmit } from '../../common/forms.js'
 
 
 /**
@@ -32,31 +32,40 @@ function ProductListElement(product, onRemove) {
 }
 
 
+function ProductSelect(products) {
+  return createElement(
+    { tag: 'select' },
+    [
+      ...products.map(product => createElement({ tag: 'option', value: product.id, textContent: `${product.name} ${product.price} грн/шт` }))
+    ]
+  )
+}
+
+
 /**
  * 
+ * @param {Product[]} possibleProducts
  * @param {Function} onSubmit 
  */
-function ProductListElementForm(onSubmit) {
-  function onFormSubmit(event) {
-    event.preventDefault()
-    const form = event.target
-    const isFormValid = form.checkValidity()
+function ProductListElementForm(possibleProducts, onSubmit) {
+  function onFormSubmit(data) {
+    const chosenId = productSelect.options[productSelect.selectedIndex].value
 
-    if (!isFormValid) {
-      return
-    }
+    const product = possibleProducts.find(possibleProduct => possibleProduct.id == chosenId)
+    product.amount = data.amount
 
-    const data = getFormData(form)
-    onSubmit(data)
+    onSubmit(product)
   }
 
+  const productSelect = ProductSelect(possibleProducts)
+
+
   return createElement(
-    { tag: 'form', className: 'product product-form', onSubmit: onFormSubmit },
+    { tag: 'form', className: 'product product-form', onSubmit: getFormDataOnSubmit(onFormSubmit) },
     [
-      createElement({ tag: 'input', className: 'product-name', name: 'name', placeholder: 'Назва товару...', required: true }),
-      createElement({ tag: 'input', name: 'amount', placeholder: '- - -', required: true, size: 1, type: 'number', min: 0 }),
-      'гр/шт x ',
-      createElement({ tag: 'input', name: 'price', placeholder: '- - -', required: true, size: 1, type: 'number', min: 0 }),
+      productSelect,
+      createElement({ tag: 'span', textContent: 'x' }),
+      NumberInputField({ name: 'amount', placeholder: '- - -', required: true }),
       createElement(
         { tag: 'button', className: 'product-button', type: 'submit' },
         [
@@ -69,18 +78,18 @@ function ProductListElementForm(onSubmit) {
 
 
 /** @param {Product[]} products */
-export function ProductList(products) {
+export function ProductList(products, possibleProducts) {
   /** @param {Product} product */
   function onProductListAdding(product) {
     products.push(product)
-    node.replaceWith(ProductList(products))
+    node.replaceWith(ProductList(products, possibleProducts))
   }
 
   /** @param {Product} product */
   function onProductRemoving(product) {
     const index = products.indexOf(product)
     products.splice(index, 1)
-    node.replaceWith(ProductList(products))
+    node.replaceWith(ProductList(products, possibleProducts))
   }
 
   const totalPrice = products.reduce((cur, product) => cur + (product.price * product.amount), 0)
@@ -89,7 +98,7 @@ export function ProductList(products) {
     { tag: 'div', className: 'products' },
     [
       ...products.map(product => ProductListElement(product, onProductRemoving)),
-      ProductListElementForm(onProductListAdding),
+      ProductListElementForm(possibleProducts, onProductListAdding),
       createElement({ tag: 'span', className: 'total-price', textContent: `Повна ціна: ${totalPrice} грн.` })
     ]
   )

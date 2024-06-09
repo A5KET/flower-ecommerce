@@ -1,42 +1,47 @@
 import { createElement } from '../../layout.js'
 import { adminNavigationOptions } from '../../config.js'
 import { EntityManagmentTable, TableInfo, orderOption } from '../../common/tables.js'
-import { Fieldset, FormButtons, TextInputField, DateTimeField, SelectField, getFormData } from '../../common/forms.js'
-import { ProductList } from '../../common/products.js'
+import { Fieldset, FormButtons, TextInputField, DateTimeField, SelectField, getFormData, getFormDataOnSubmit } from '../../common/forms.js'
+import { ProductList } from '../components/products.js'
 import { toLocaleStringFormat } from '../../formats.js'
 import { AdminBaseLayout } from '../components/base.js'
 
 
 /**
+ * @readonly
+ * @type {StatusOptions}
+ */
+export const statusOptions = {
+  new: 'Новий',
+  processing: 'Обробляється',
+  done: 'Виконано',
+  canceled: 'Скасовано'
+}
+
+
+/**
  * 
- * @param {Order} order 
+ * @param {Order | Object} order 
  * @param {StatusOptions} statusOptions 
  * @param {Function} onSave 
- * @param {Function} onRemove 
+ * @param {Function} [onRemove] 
  * @returns 
  */
-function OrderFormMain(order, statusOptions, onSave, onRemove) {
-  function onOrderSave(event) {
-    event.preventDefault()
-    const form = event.target.form
-    const isFormValid = form.checkValidity()
+export function OrderForm(order, possibleProducts, onSave, onRemove) {
+  function onOrderSave(savedOrder) {
+    savedOrder.id = order.id
+    savedOrder.products = products
+    savedOrder.status = statusOptions[savedOrder.status]
 
-    if (!isFormValid) {
-      return 
-    }
-
-    const data = getFormData(form)
-    data.products = products
-
-    Object.assign(order, data)
-    onSave(order)
+    onSave(savedOrder)
   }
 
-  function onOrderRemove(event) {
-    onRemove(order)
+  if (!order.products) {
+    order.products = []
   }
 
-  const products = order.products || []
+  const products = order.products
+  console.log(products)
 
   const fields = [
     SelectField(
@@ -65,49 +70,27 @@ function OrderFormMain(order, statusOptions, onSave, onRemove) {
       })
   ]
 
-  return createElement(
-    { tag: 'main' },
-    [
-      createElement({ tag: 'h1', textContent: `Замовлення №${order.id || ''}` }),
-      createElement({ tag: 'form', onSubmit: onOrderSave }, [
-        Fieldset(fields),
-        ProductList(products),
-        FormButtons(onOrderSave, onRemove ? onOrderRemove : undefined)
-      ])
-    ]
+  return AdminBaseLayout(
+    createElement(
+      { tag: 'main' },
+      [
+        createElement({ tag: 'h1', textContent: `Замовлення №${order.id || ''}` }),
+        createElement({ tag: 'form', onSubmit: getFormDataOnSubmit(onOrderSave) }, [
+          Fieldset(fields),
+          ProductList(products, possibleProducts),
+          FormButtons(onRemove ? () => onRemove(order) : undefined)
+        ])
+      ]
+    )
   )
 }
 
 
-/**
- * 
- * @param {Order | Object} order 
- * @param {StatusOptions} statusOptions 
- * @param {Function} onSave 
- * @param {Function} [onRemove] 
- * @returns 
- */
-export function OrderFormLayout(order, statusOptions, onSave, onRemove) {
-  return AdminBaseLayout(OrderFormMain(order, statusOptions, onSave, onRemove))
+export function NewOrderForm(possibleProducts, onSave) {
+  return OrderForm({}, possibleProducts, onSave)
 }
 
 
-/**
- * 
- * @param {StatusOptions} statusOptions 
- * @param {Function} onSave
- */
-export function NewOrderFormLayout(statusOptions, onSave) {
-  return OrderFormLayout({}, statusOptions, onSave)
-}
-
-
-
-/**
- * 
- * @param {Order[]} orders 
- * @returns 
- */
 export function Orders(orders, newEntityFormURL) {
   const tableInfo = new TableInfo(
     {

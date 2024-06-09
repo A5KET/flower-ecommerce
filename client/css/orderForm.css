@@ -21,6 +21,14 @@ main {
   margin-top: 10px;
 }
 
+.product select {
+  background: none;
+  flex: 1;
+  background: none;
+  border: none;
+  font-size: inherit;
+}
+
 .product-name {
   flex: 1;
   margin-right: 10px;
@@ -50,6 +58,8 @@ main {
   outline: none;
   min-width: 60px;
   font-size: inherit;
+  color: inherit;
+  max-width: 70px;
 }
 
 .product-form .product-name {

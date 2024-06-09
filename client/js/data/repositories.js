@@ -91,7 +91,7 @@ export class OrderRepository extends Repository {
   handleResultEntity(order) {
     const products = order.products
     order.totalPrice = products.reduce(((currentSum, product) => currentSum + (product.price * product.amount)), 0)
-    order.timeCreated = new Date(order.timeCreated)
+    order.createdAt = new Date(order.createdAt)
 
     return order
   }

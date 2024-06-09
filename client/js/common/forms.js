@@ -61,7 +61,7 @@ export function NumberInputField(field) {
     { tag: 'div', className: 'field' },
     [
       createElement({ tag: 'label', name: field.name, textContent: field.label }),
-      createElement({ tag: 'input', type: 'number', className: 'field-input', name: field.name, value: field?.value })
+      createElement(Object.assign(field, { tag: 'input', type: 'number', className: 'field-input', name: field.name, value: field?.value }))
     ]
   )
 }

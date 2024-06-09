@@ -148,13 +148,14 @@ export class Database {
     return this.executeOne(`
       INSERT INTO "order" (customer, status)
       VALUES ($1, $2)
+      RETURNING *
     `, [order.customer, order.status])
   }
 
   updateOrder(order) {
     return this.executeOne(`
       UPDATE "order"
-      SET customer = $1, status = $2, time_created = $3
+      SET customer = $1, status = $2, created_at = $3
       WHERE id = $4
     `, [order.customer, order.status, order.timeCreated, order.id])
   }
@@ -278,6 +279,7 @@ export class Database {
     return this.executeOne(`
       INSERT INTO "review" (user_id, text)
       VALUES ($1, $2)
+      RETURNING *
     `, [review.userId, review.text])
   }
 
