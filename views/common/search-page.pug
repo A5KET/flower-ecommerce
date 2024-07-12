@@ -1,0 +1,19 @@
+mixin search-page(searchResult, resultMixinName, paginationInfo)
+  <div class='search-page'>
+    <div class='filters'>
+      <div class='filters-title'>
+        | Filters
+      </div>
+    </div>
+
+    <div class='results-wrapper'>
+      <div class='topbar-wrapper'>
+        <form class='searchbar'>
+          <input placeholder='Search...'>
+        </form>
+
+      </div>
+      each result in searchResult
+        +#{resultMixinName}(result)
+    </div>
+  </div>

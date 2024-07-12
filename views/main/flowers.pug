@@ -1,0 +1,19 @@
+extends base
+include /common/flower-card
+include /common/search-page
+
+
+mixin main-flower-card(flower)
+  +flower-card(flower, getUrl('main-flower', { id: flower.id }))
+
+
+block append styles
+  <link rel='stylesheet' href='/css/flowers.css'>
+  <link rel='stylesheet' href='/css/search-page.css'>
+
+
+block title
+  | Flowers
+
+block append content
+  +search-page(flowers, 'main-flower-card', { })

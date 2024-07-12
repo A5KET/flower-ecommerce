@@ -1,0 +1,14 @@
+extends /common/base
+
+block subtitle
+  | FloraShop
+
+block append vars 
+  - 
+    var navigationOptions = [
+      {
+        url: getUrl('main-flowers'),
+        title: 'Квіти',
+        icon: '/img/flower.svg'
+      }
+    ]

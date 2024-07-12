@@ -1,0 +1,58 @@
+block vars
+  -
+    var navigationOptions = navigationOptions || []
+    var indexPageHref = indexPageHref || '/'
+
+mixin nav-option(option)
+  <a class='navigation-option' href='#{option.url}'>
+      <img class='navigation-option-icon' src='#{option.icon}'>
+      <span class='navigation-option-text'>#{option.title}</span>
+  </a>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  <title>
+    block title
+
+    |  | 
+    
+    block subtitle
+  </title>
+  block styles
+    <link rel='stylesheet' href='/css/base.css'>
+  
+  block scripts
+</head>
+
+<body>
+  block header
+    <header>
+      <div class='logo-wrapper'>
+        <a class='header-logo' href='#{indexPageHref}'>
+          <img src='/img/logo.svg'>
+          <span class='logo-text'>FloraShop</span>
+        </a>
+      </div>
+      <div class='navigation-wrapper'>
+        <nav> 
+          each option in navigationOptions
+            +nav-option(option)
+        </nav>
+      </div>
+    </header>
+
+  block main
+    <main>
+      block content
+    </main>
+
+  block footer
+    <footer>
+
+    </footer>
+</body>
+</html>
